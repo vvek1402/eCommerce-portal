@@ -1,0 +1,112 @@
+﻿@model E_Commerce.Models.OrderModel
+@{
+    ViewBag.Title = "shop";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Includes/css/track.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="card">
+        <header class="card-header"> <h6>Order ID: @Model.order.order_no</h6> </header>
+        <div class="card-body">
+            @{
+
+                var status = Model.StatusList.Where(x => x.status_id == Model.order.status_id).SingleOrDefault();
+                var orderdetails = Model.OrderDetailList.Where(x => x.order_id == Model.order.order_id).ToList();
+                var shipper = Model.users.Where(x => x.role_id == 1).SingleOrDefault();
+               
+                var admincity = Model.cities.Where(x => x.city_id == Model.adminadd.city_id).SingleOrDefault();
+
+                var admincountry = Model.countries.Where(x => x.Country_id == Model.adminadd.country_id).SingleOrDefault();
+                <div class="card">
+                    @{
+                        int count = 0;
+
+
+                        <div class="card-body row">
+
+
+                            <div class="col"> <strong>Estimated Delivery time:</strong> <br></div>
+                            <div class="col">
+                                <strong>
+                                    Shipping BY:</strong>
+                                    <div>@shipper.name</div>
+                                    <div>@Model.adminadd.address</div>
+                                    <div>@admincity.city_name, @admincountry.Country_name, @Model.adminadd.pincode</div>
+                                    <div>Email: @shipper.email_id</div>
+                                    <div>Phone: @shipper.mobile_no</div>
+
+                            </div>
+
+                            <div class="col"> <strong>Status:</strong> <br> @status.status </div>
+
+                        </div>
+
+                        if (@status.status == "waiting for confirm your order")
+                        {
+                            <div class="track">
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">waiting for confirm your order</span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> accepted</span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">out for delivery </span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-home"></i> </span> <span class="text"> Delieverd</span> </div>
+                            </div>
+                        }
+                        else if (@status.status == "accepted")
+                        {
+                            <div class="track">
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">waiting for confirm your order</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> accepted</span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">out for delivery </span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-home"></i> </span> <span class="text"> Delieverd</span> </div>
+                            </div>
+                        }
+                        else if (@status.status == "out for delivery")
+                        {
+                            <div class="track">
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">waiting for confirm your order</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> accepted</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">out for delivery</span> </div>
+                                <div class="step"> <span class="icon"> <i class="fa fa-home"></i> </span> <span class="text"> Delieverd</span> </div>
+                            </div>
+                        }
+                        else if (@status.status == "deliverd")
+                        {
+                            <div class="track">
+                                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">waiting for confirm your order</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> accepted</span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> out for delivery </span> </div>
+                                <div class="step active"> <span class="icon"> <i class="fa fa-home"></i> </span> <span class="text"> Delieverd</span> </div>
+                            </div>
+                        }
+                        <hr>
+
+                        <ul class="row">
+                            @foreach (var orderdetail in orderdetails)
+                            {
+                                count = count + 1;
+                                var productvariant = Model.ProductVariantList.Where(x => x.product_variant_id == orderdetail.product_variant_id).SingleOrDefault();
+                                double total = orderdetail.quantity * productvariant.Selling_price;
+                                var image = Model.imageList.Where(x => x.product_variant_id == productvariant.product_variant_id).SingleOrDefault();
+                                <li class="col-md-4">
+                                    <figure class="itemside mb-3">
+                                        <div class="aside"><img src="@image.main_image" class="img-sm border"></div>
+                                        <figcaption class="info align-self-center">
+                                            <p class="title">@productvariant.product_variant_title </p><span class="text-muted">Quantity: @orderdetail.quantity</span><br /> <span class="text-muted">Amount: @total Rs.</span>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            }
+
+                        </ul>
+
+                    }
+                    <hr>
+
+                </div>
+
+            }
+            <a href="@Url.Action("orderstatus","Home",new { area = "User" })" class="btn btn-info" data-abc="true" style=" background-color: #717fe0"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+        </div>
+    </div>
+</div>
+

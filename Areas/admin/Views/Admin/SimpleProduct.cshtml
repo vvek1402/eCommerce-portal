@@ -1,0 +1,389 @@
+﻿@model E_Commerce.Models.ProductList
+@using E_Commerce.Models 
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/ruang-admin.min.css" rel="stylesheet" />
+<link href="~/Content/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+
+    #img-upload1 {
+        width: 200px;
+    }
+
+    #img-upload2 {
+        width: 200px;
+    }
+
+    #img-upload3 {
+        width: 200px;
+    }
+
+    #img-upload4 {
+        width: 200px;
+    }
+
+    #img-upload5 {
+        width: 200px;
+    }
+</style>
+
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Product</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product</li>
+        </ol>
+    </div>
+    <div class="container-fluid" style="text-align: right; padding-bottom: 20px;">
+
+
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Add New Product
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="@Url.Action("simpleform","Admin",new { area="admin" })">Add Simple Product</a>
+                <a class="dropdown-item" href="@Url.Action("variantform","Admin",new { area="admin" })">Add Variant Product</a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Simple Products</h6>
+            </div>
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Is Active</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Sub Category</th>
+                            <th>Stock</th>
+                            <th>Selling Price</th>
+                            <th>MRP</th>
+                            <th>Discount</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tfoot class="thead-light">
+                        <tr>
+                            <th>Is Active</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Sub Category</th>
+                            <th>Stock</th>
+                            <th>Selling Price</th>
+                            <th>MRP</th>
+                            <th>Discount</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var product in Model.productList)
+                        {
+                            var category = Model.categoryList.Where(x => x.category_id == product.category_id).ToList();
+                            var subcat = Model.subcategoryList.Where(x => x.sub_category_id == product.sub_category_id).ToList();
+                            var variant = Model.productvariantList.Where(x => x.product_id == product.product_id).ToList();
+                            var img = Model.ImageList.Where(x => x.product_variant_id == variant[0].product_variant_id).SingleOrDefault();
+
+
+                            <tr>
+                                @if (product.Isactive == 1)
+                                {
+                                    <td>active</td>
+                                }
+                                else
+                                {
+                                    <td>Inactive</td>
+                                }
+                                <td><img src="@img.main_image" atl="" width="100px" height="100px"></td>
+                                <td>@product.title</td>
+                                <td>@product.sku</td>
+                                <td>@category[0].category_name</td>
+                                <td>@subcat[0].sub_category_name</td>
+
+                                <td>@variant[0].unit_in_stock</td>
+                                <td>@variant[0].Selling_price</td>
+                                <td>@variant[0].MRP</td>
+
+                                @if (variant[0].discount == 0)
+                                {
+                                    <td>no discount</td>
+                                }
+                                else
+                                {
+                                    <td>@variant[0].discount</td>
+                                }
+
+                                <td>
+                                    <button type="button" id="editbtn" class="btn" data-toggle="modal" data-target="#exampleModalScrollable_@product.product_id">
+                                        <i class="fas fa-edit text-info"></i>
+                                    </button>
+
+                                </td>
+                                <td>
+                                    <button type="button" id="removebtn" class="btn" onclick="removeproduct(@product.product_id)">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+</td>
+                            </tr>
+
+                            <!--Model-->
+
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload1').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp1").change(function () {
+            readURL(this);
+        });
+
+    });
+
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload2').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp2").change(function () {
+            readURL(this);
+        });
+
+    });
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload3').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp3").change(function () {
+            readURL(this);
+        });
+
+    });
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload4').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp4").change(function () {
+            readURL(this);
+        });
+
+    });
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload5').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp5").change(function () {
+            readURL(this);
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        
+        $("#category_id").change(function () {
+            $.get("/admin/Admin/GetSubCategoryList", { category_id: $("#category_id").val() }, function (data) {
+                $("#sub_category_id").empty();
+                $.each(data, function (index, row) {
+                    $("#sub_category_id").append("<option value='" + row.sub_category_id + "'>" + row.sub_category_name + "</option>")
+                });
+            });
+        })
+    });
+</script>
+<script>
+    function removeproduct(id){
+        $.ajax({
+            type: "GET",
+            url: "/admin/Admin/removeproduct/"+id,
+            
+            success: function (response) {
+                alert("product removed");
+            }
+        })
+    }
+</script>

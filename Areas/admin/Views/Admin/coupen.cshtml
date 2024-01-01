@@ -1,0 +1,167 @@
+﻿@model E_Commerce.Models.CoupenViewModel
+@{
+    ViewBag.Title = "coupen";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Coupens</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Coupens</li>
+        </ol>
+    </div>
+    <div class="container-fluid" style="text-align: right; padding-bottom: 20px;">
+
+
+        <button class="btn btn-primary " id="addbtt" type="button" onclick="displayform()" style="margin-left:14px;">
+            Add New Coupen
+        </button>
+    </div>
+
+    <div class="container">
+
+        <div id="add-form-f" style="padding:20px;display:none;">
+
+            <form class="add-form-f" action="" method="post">
+
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Coupen Name</label>
+                    @Html.TextBoxFor(x => x.name, new { @class = "form-control ", @placeholder = "Coupen Name" })
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-sm-4" for="description">Other Coupen Detail:</label>
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(x => x.description, htmlAttributes: new { @class = "ckeditor" })
+                    </div>
+
+                </div>
+
+
+
+               
+
+                <div class="form-group col-md-6" id="simple-date4" >
+                    <label for="dateRangePicker">Select Validity Time</label>
+                    <div class="input-daterange input-group">
+                        @Html.TextBoxFor(x => x.starting_date, new { @class = "input-sm form-control", @name = "start", @Value = System.DateTime.Now.ToString("dd/MM/yyyy") })
+                        
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">to</span>
+                        </div>
+                        @Html.TextBoxFor(x => x.ending_date, new { @class="input-sm form-control" ,@name="end", @Value = System.DateTime.Now.ToString("dd/MM/yyyy") })
+                       
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group col-md-6">
+                    <label for="inputAddress">Discount Rate</label>
+                    @Html.TextBoxFor(x => x.discount_rate, new { @class = "form-control ", @placeholder = "Enter Discount Rate", @Value = "" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Minimun Purchase Price</label>
+                    @Html.TextBoxFor(x => x.minimun_purchase_price, new { @class = "form-control ", @placeholder = "Enter Minimun Purchase Price", @Value = "" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputAddress2">Maximum Purchase Price</label>
+                    @Html.TextBoxFor(x => x.maximum_purchase_price, new { @class = "form-control ", @placeholder = "Enter Maximum Purchase Price", @Value = "" })
+                </div>
+
+           
+
+
+
+                <button type="submit" class="btn btn-primary btn-md">Submit</button>
+            </form>
+    </div>
+    </div>
+
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Coupen List</h6>
+            </div>
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Coupen Name</th>
+                            <th>Starting Date:</th>
+                            <th>Ending Date:</th>
+                           
+                            <th>Discount Rate</th>
+                            <th>Minimun Purchase Price</th>
+                            <th>Maximum Purchase Price</th>
+                            <th>Edit</th>
+
+                            <th>Remove</th>
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var coupen in Model.coupenList)
+                        {
+
+                            <tr>
+
+
+                                <td>@coupen.name</td>
+                                <td>@coupen.starting_date.ToString("dd/MM/yyyy")</td>
+                                <td>@coupen.ending_date.ToString("dd/MM/yyyy")</td>
+                                
+                                <td>@coupen.discount_rate</td>
+                                <td>@coupen.minimun_purchase_price</td>
+                                <td>@coupen.maximum_purchase_price</td>
+
+
+
+                                <td>
+
+                                    <a href="#">
+                                        <i class="fas fa-edit text-info"></i>
+                                    </a>
+
+                                </td>
+                                <td>
+
+                                    <a href="#">
+                                        <i class="fas fa-trash text-danger"></i>
+
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script>
+    function displayform() {
+        var x = document.getElementById("add-form-f");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+
+
+

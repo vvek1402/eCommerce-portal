@@ -1,0 +1,63 @@
+﻿@model E_Commerce.Models.User_account
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Admin</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .display-none{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-form">
+        <form action="" method="post">
+            <h3 style="color:#9fadca; text-align:center; padding:20px;">Login</h3>
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.email_id, new { @class = "form-control item", @placeholder = "Email", @required = true })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(x => x.password, new { @class = "form-control item", @placeholder = "Password", @required = true, type = "password", id = "myInput" })
+                <input type="checkbox" onclick="myFunction()">  Show Password
+
+                <script>
+                    function myFunction() {
+                        var x = document.getElementById("myInput");
+                        if (x.type === "password") {
+                            x.type = "text";
+                        } else {
+                            x.type = "password";
+                        }
+                    }
+                </script>
+            </div>
+            <div style="color:red; text-align:center;">
+                @ViewBag.error
+            </div>
+            <div class="form-group">
+                <button type="submit" onclick="loadingon()" class="btn btn-block create-account">
+                    <i id="spinner" class="fa fa-spinner fa-spin display-none"></i> Login
+                    
+                </button>
+                
+            </div>
+        </form>
+        
+    </div>
+   <script>
+       function loadingon() {
+           document.getElementById("spinner").classList.remove("display-none");
+       }
+   </script>
+</body>
+</html>

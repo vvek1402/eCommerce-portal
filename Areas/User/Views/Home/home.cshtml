@@ -1,0 +1,284 @@
+﻿@model E_Commerce.Models.HomeViewModel
+@using E_Commerce.Models
+@{
+    ViewBag.Title = "shop";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Slider -->
+<section class="section-slide">
+    <div class="wrap-slick1">
+        <div class="slick1">
+            <div class="item-slick1 my-bg" style="        background-image: url(/Includes/images/banner8.jpg); ">
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                Electronic Collection
+                            </span>
+                        </div>
+                        
+                        <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1" style="font-size:55px;">
+                                NEW SEASON
+                            </h2>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                            <a href="@Url.Action("shop", "Home", new { area="User"})" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="item-slick1  my-bg" style="        background-image: url(/Includes/images/banner9.jpg);">
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                Books Collection
+                            </span>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                New Arrival
+                            </h2>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
+                            <a href="@Url.Action("shop", "Home", new { area="User"})" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-slick1 my-bg" style="        background-image: url(/Includes/images/banner10.jpg);">
+                <div class="container h-full">
+                    <div class="flex-col-l-m h-full p-t-100 p-b-30 respon5">
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
+                            <span class="ltext-101 cl2 respon2">
+                                Fashion Collection
+                            </span>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
+                            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1">
+                                Try Once
+                            </h2>
+                        </div>
+
+                        <div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
+                            <a href="@Url.Action("shop", "Home", new { area="User"})" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+                                Shop Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+</section>
+
+
+<!-- Banner -->
+<div class="sec-banner bg0 p-t-80 p-b-50">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                <!-- Block1 -->
+                <div class="block1 wrap-pic-w">
+                    <img src="~/Includes/images/banner13.jpg" alt="IMG-BANNER">
+
+                    <a href="@Url.Action("shop", "Home", new { area="User"})" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                        <div class="block1-txt-child1 flex-col-l">
+                            <span class="block1-name ltext-102 trans-04 p-b-8">
+                                Electronics
+                            </span>
+
+                            <span class="block1-info stext-102 trans-04">
+                                Latest
+                            </span>
+                        </div>
+
+                        <div class="block1-txt-child2 p-b-4 trans-05">
+                            <div class="block1-link stext-101 cl0 trans-09">
+                                Shop Now
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                <!-- Block1 -->
+                <div class="block1 wrap-pic-w">
+                    <img src="~/Includes/images/banner12.jpg" alt="IMG-BANNER">
+
+                    <a href="@Url.Action("shop", "Home", new { area="User"})" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                        <div class="block1-txt-child1 flex-col-l">
+                            <span class="block1-name ltext-102 trans-04 p-b-8">
+                                Home & Kitchen
+                            </span>
+
+                            <span class="block1-info stext-102 trans-04">
+                                New
+                            </span>
+                        </div>
+
+                        <div class="block1-txt-child2 p-b-4 trans-05">
+                            <div class="block1-link stext-101 cl0 trans-09">
+                                Shop Now
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
+                <!-- Block1 -->
+                <div class="block1 wrap-pic-w">
+                    <img src="~/Includes/images/banner11.jpg" alt="IMG-BANNER">
+
+                    <a href="@Url.Action("shop", "Home", new { area="User"})" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                        <div class="block1-txt-child1 flex-col-l">
+                            <span class="block1-name ltext-102 trans-04 p-b-8">
+                                Fashion
+                            </span>
+
+                            <span class="block1-info stext-102 trans-04">
+                                New Trend
+                            </span>
+                        </div>
+
+                        <div class="block1-txt-child2 p-b-4 trans-05">
+                            <div class="block1-link stext-101 cl0 trans-09">
+                                Shop Now
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+    <!-- Product -->
+    <section class="bg0 p-t-23 p-b-100">
+        <div class="container">
+            <div class="p-b-10">
+                <h3 class="ltext-103 cl5">
+                    Fashion
+                </h3>
+            </div>
+
+            @{
+                HomeViewModel items = new HomeViewModel();
+                long cid = Model.categoryList.Where(x => x.category_name == "Fashion").SingleOrDefault().category_id;
+                items.ProductList = Model.ProductList;
+                items.categoryList = Model.categoryList;
+                items.ProductVariantList = Model.ProductVariantList;
+                items.ProductImageList = Model.ProductImageList;
+
+                items.data = new Tuple<HomeViewModel, long, int>(items, cid, 4);
+
+                @Html.Partial("partialProduct", items);
+            }
+        </div>
+    </section>
+
+
+
+    <section class="bg0 p-t-23 p-b-100">
+        <div class="container">
+            <div class="p-b-10">
+                <h3 class="ltext-103 cl5">
+                    Electronics
+                </h3>
+            </div>
+
+            @{
+                HomeViewModel items1 = new HomeViewModel();
+                long cid1 = Model.categoryList.Where(x => x.category_name == "Electronics").SingleOrDefault().category_id;
+                items1.ProductList = Model.ProductList;
+                items1.categoryList = Model.categoryList;
+                items1.ProductVariantList = Model.ProductVariantList;
+                items1.ProductImageList = Model.ProductImageList;
+
+                items.data = new Tuple<HomeViewModel, long, int>(items1, cid1, 4);
+
+                @Html.Partial("partialProduct", items);
+            }
+
+        </div>
+    </section>
+
+
+
+    <section class="bg0 p-t-23 p-b-100">
+        <div class="container">
+            <div class="p-b-10">
+                <h3 class="ltext-103 cl5">
+                    Home & Kitchen
+                </h3>
+            </div>
+
+
+            @{
+                HomeViewModel items2 = new HomeViewModel();
+                long cid2 = Model.categoryList.Where(x => x.category_name == "Home & Kitchen").SingleOrDefault().category_id;
+                items2.ProductList = Model.ProductList;
+                items2.categoryList = Model.categoryList;
+                items2.ProductVariantList = Model.ProductVariantList;
+                items2.ProductImageList = Model.ProductImageList;
+
+                items.data = new Tuple<HomeViewModel, long, int>(items2, cid2, 4);
+
+                @Html.Partial("partialProduct", items);
+            }
+
+        </div>
+    </section>
+
+
+    <section class="bg0 p-t-23 p-b-100">
+        <div class="container">
+            <div class="p-b-10">
+                <h3 class="ltext-103 cl5">
+                    Books
+                </h3>
+            </div>
+
+            @{
+                HomeViewModel items3 = new HomeViewModel();
+                long cid3 = Model.categoryList.Where(x => x.category_name == "Books").SingleOrDefault().category_id;
+                items3.ProductList = Model.ProductList;
+                items3.categoryList = Model.categoryList;
+                items3.ProductVariantList = Model.ProductVariantList;
+                items3.ProductImageList = Model.ProductImageList;
+
+                items.data = new Tuple<HomeViewModel, long, int>(items3, cid3, 4);
+
+                @Html.Partial("partialProduct", items);
+            }
+
+        </div>
+    </section>
+</div>
+
+
+
+<!-- Back to top -->
+<div class="btn-back-to-top" id="myBtn">
+    <span class="symbol-btn-back-to-top">
+        <i class="zmdi zmdi-chevron-up"></i>
+    </span>
+</div>

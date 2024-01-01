@@ -1,0 +1,387 @@
+﻿@model E_Commerce.Models.CascadingCatSubCat
+@{
+    ViewBag.Title = "editvariant";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+
+    #img-upload1 {
+        width: 200px;
+    }
+
+    #img-upload2 {
+        width: 200px;
+    }
+
+    #img-upload3 {
+        width: 200px;
+    }
+
+    #img-upload4 {
+        width: 200px;
+    }
+</style>
+
+<div class="container" id="add-form" style="padding:20px; ">
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="sku">Variant SKU Id:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.variantsku, new { @class = "form-control ", @placeholder = "Variant SKU ID" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="sku">Variant Title:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.product_variant_title, new { @class = "form-control ", @placeholder = "Variant Title" })
+            </div>
+        </div>
+        <div class="form-group" style="width: 100%;">
+            <label class="control-label col-sm-2" for="">
+                Variant
+            </label>
+            <div class="col-sm-6 form-holder">
+                @Html.DropDownListFor(model => model.variant_id, ViewBag.VariantList as SelectList, new { @class = "form-control" })
+
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="stock">Variant Value:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.variant_value, new { @class = "form-control ", @placeholder = "Enter Value according variant type" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="stock">Stock:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.unit_in_stock, new { @class = "form-control ", @placeholder = "Enter stock" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="qpu">Quantity Per Unit:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.quantity_per_unit, new { @class = "form-control ", @placeholder = "Enter Quantity Per Unit"})
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="mupo">Maximum Unit Per Order:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.max_purchase_quantity, new { @class = "form-control ", @placeholder = "Enter Maximum Unit Per Order" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="weight">Weight:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.weight, new { @class = "form-control ", @placeholder = "Enter weight"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="mrp">Maximum Retail Price:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.MRP, new { @class = "form-control ", @placeholder = "Enter Maximum Retail Price" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="sprice">Selling Price:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.Selling_price, new { @class = "form-control ", @placeholder = "Enter Selling Price" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="discount">Discount:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.discount, new { @class = "form-control ", @placeholder = "Enter Discount" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="minqod">Minimum Quantity on discount:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.discount_min_quantity, new { @class = "form-control ", @placeholder = "Enter Minimum Quantity on discount" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="maxqod">Maximum Quantity on discount:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.discount_max_quantity, new { @class = "form-control ", @placeholder = "Enter Maximum Quantity on discount" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4">Select Main Image:</label>
+            <div class="col-sm-6 input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Browse… <input type="file" name="file1" id="imgInp1">
+                    </span>
+                </span>
+                @Html.TextBoxFor(x => x.main_image, new { @class = "form-control" })
+            </div>
+            <img id='img-upload1' />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-4">Select Other Images:</label>
+            <div class="col-sm-6 input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Browse… <input type="file" name="file2" id="imgInp2">
+                    </span>
+                </span>
+                @Html.TextBoxFor(x => x.image1, new { @class = "form-control" })
+            </div>
+            <img id='img-upload2' />
+            <div class="col-sm-6 input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Browse… <input type="file" name="file3" id="imgInp3">
+                    </span>
+                </span>
+                @Html.TextBoxFor(x => x.image2, new { @class = "form-control" })
+            </div>
+            <img id='img-upload3' />
+            <div class="col-sm-6 input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Browse… <input type="file" name="file4" id="imgInp4">
+                    </span>
+                </span>
+                @Html.TextBoxFor(x => x.image3, new { @class = "form-control" })
+            </div>
+            <img id='img-upload4' />
+            <div class="col-sm-6 input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-default btn-file">
+                        Browse… <input type="file" name="file5" id="imgInp5">
+                    </span>
+                </span>
+                @Html.TextBoxFor(x => x.image4, new { @class = "form-control" })
+            </div>
+            <img id='img-upload5' />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#img-upload1').attr('src', "@Model.main_image");
+        $('#img-upload2').attr('src', "@Model.image1");
+        $('#img-upload3').attr('src', "@Model.image2");
+        $('#img-upload4').attr('src', "@Model.image3");
+        $('#img-upload5').attr('src', "@Model.image4");
+
+
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload1').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp1").change(function () {
+            readURL(this);
+        });
+
+    });
+
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload2').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp2").change(function () {
+            readURL(this);
+        });
+
+    });
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload3').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp3").change(function () {
+            readURL(this);
+        });
+
+    });
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload4').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp4").change(function () {
+            readURL(this);
+        });
+
+    });
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload5').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp5").change(function () {
+            readURL(this);
+        });
+
+    });
+</script>

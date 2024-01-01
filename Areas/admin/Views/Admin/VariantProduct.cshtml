@@ -1,0 +1,133 @@
+﻿@model E_Commerce.Models.ProductList
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/ruang-admin.min.css" rel="stylesheet" />
+<link href="~/Content/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Product</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Product</li>
+        </ol>
+    </div>
+    <div class="container-fluid" style="text-align: right; padding-bottom: 20px;">
+
+
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                Add New Product
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="@Url.Action("simpleform","Admin",new { area="admin" })">Add Simple Product</a>
+                <a class="dropdown-item" href="@Url.Action("variantform","Admin",new { area="admin" })">Add Variant Product</a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-12">
+        <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Variant Products</h6>
+            </div>
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Is Active</th>
+                            <th>Title</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Sub Category</th>
+                            <th>Variants</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tfoot class="thead-light">
+                        <tr>
+                            <th>Is Active</th>
+                            <th>Title</th>
+                            <th>SKU</th>
+                            <th>Category</th>
+                            <th>Sub Category</th>
+                            <th>Variants</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var product in Model.productList)
+                        {
+                            var category = Model.categoryList.Where(x => x.category_id == product.category_id).ToList();
+                            var subcat = Model.subcategoryList.Where(x => x.sub_category_id == product.sub_category_id).ToList();
+                            var variant = Model.productvariantList.Where(x => x.product_id == product.product_id).ToList();
+                            var img = Model.ImageList.Where(x => x.product_variant_id == variant[0].product_variant_id).SingleOrDefault();
+                         
+                            <tr>
+                                @if (product.Isactive == 1)
+                                {
+                                    <td>active</td>
+                                }
+                                else
+                                {
+                                    <td>Inactive</td>
+                                }
+                                
+                                <td>@product.title</td>
+                                <td>@product.sku</td>
+
+                                <td>@category[0].category_name</td>
+                                <td>@subcat[0].sub_category_name</td>
+                                
+                              
+                               <td>
+                                   <a href="@Url.Action("addvariant", "Admin", new { id=product.product_id,area="admin"})">
+                                       <button class="btn btn-success " id="edit" type="button" style="width:118px;">
+                                           View Variant
+                                       </button>
+                                   </a>
+                               </td>
+                               
+
+                                <td>
+                                    <a href="#">
+                                        <i class="fas fa-edit text-info"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <button type="button" id="removebtn" class="btn" onclick="removeproduct(@product.product_id)">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    function removeproduct(id) {
+        $.ajax({
+            type: "GET",
+            url: "/admin/Admin/removeproduct/" + id,
+
+            success: function (response) {
+                alert("product removed");
+            }
+        })
+    }
+</script>

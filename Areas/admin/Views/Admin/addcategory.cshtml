@@ -1,0 +1,91 @@
+﻿@model E_Commerce.Models.ProductList
+@using E_Commerce.Models
+@{
+    ViewBag.Title = "addcategory";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/ruang-admin.min.css" rel="stylesheet" />
+<link href="~/Content/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" />
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Category</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Category</li>
+        </ol>
+    </div>
+    <div class="container" style="text-align: right">
+
+
+        <button class="btn btn-primary " id="addbt" type="button" onclick="displayform()" style="margin-left:14px; margin-bottom:25px;">
+            Add Category
+        </button>
+
+
+        <div class="container" id="add-form" style="padding:20px; display:none;">
+            <form id="cat-form" class="add-form form">
+
+                <div class="offset-lg-6 col-lg-6 col-sm-12">
+                    <div class="input-group mb-3">
+                        @Html.TextBoxFor(x => x.category_name, new { @class = "form-control ", @placeholder = "Enter Category" })
+
+                        <div class="input-group-append">
+                            <button id="cat-btn" class="btn btn-lg btn-primary" style=" padding: 5px;width: 72px;" type="button"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+    <script>
+        function displayform() {
+            var x = document.getElementById("add-form");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+    <div class="panel-group categoryclass" id="accordion">
+        
+           
+            @Html.Partial("partialcategory",Model)
+        
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+</div>
+<script>
+    function changestatus(id) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/Admin/changestatus/" + id,
+            
+            success: function (response) {
+                $(".categoryclass").load("/admin/Admin/getcategory");
+            }
+        })
+    };
+</script>
+
+

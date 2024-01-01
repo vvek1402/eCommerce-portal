@@ -1,0 +1,318 @@
+﻿
+@{
+    Layout = null; 
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@ViewBag.Title</title>
+
+    <link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/ruang-admin.css" rel="stylesheet" />
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+   
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="E-Commerce Portal">
+                <div class="sidebar-brand-text mx-3">E-Commerce Portal</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("dashboard", "Admin", new { area="admin" })">
+                    <i class="fa fa-columns"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profile" aria-expanded="true"
+                   aria-controls="collapseForm">
+                    <i class="fa fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <div id="profile" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("profile", "Profile", new { area="admin" })">User Details</a>
+                        <a class="collapse-item" href="@Url.Action("addressbook", "Profile", new { area = "admin" })">Address Book</a>
+
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#product" aria-expanded="true"
+                   aria-controls="collapseForm">
+                    <i class="fa fa-product-hunt"></i>
+                    <span>Product</span>
+                </a>
+                <div id="product" class="collapse " aria-labelledby="headingForm" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("addcategory", "Admin", new { area="admin" })">Add Category</a>
+
+                        <a class="collapse-item" href="@Url.Action("simpleform", "Admin", new { area="admin" })">Add Simple Product</a>
+                        <a class="collapse-item" href="@Url.Action("variantform", "Admin", new { area="admin" })">Add Variant Product</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#inventory" aria-expanded="true"
+                   aria-controls="collapseForm">
+                    <i class="fa fa-clone"></i>
+                    <span>Inventory</span>
+                </a>
+                <div id="inventory" class="collapse " aria-labelledby="headingForm" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("product", "Admin", new { area="admin" })">All Products</a>
+                        <a class="collapse-item" href="@Url.Action("SimpleProduct", "Admin", new { area="admin" })">Simple Products</a>
+                        <a class="collapse-item" href="@Url.Action("VariantProduct", "Admin", new { area="admin" })">Variant Products</a>
+                        <!--<a class="collapse-item" href="@Url.Action("product", "Admin", new { area="admin" })">Out of stock Products</a>-->
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#order" aria-expanded="true"
+                   aria-controls="collapseForm">
+                    <i class="fa fa-list-alt"></i>
+                    <span>Order</span>
+                </a>
+                <div id="order" class="collapse " aria-labelledby="headingForm" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("manageOrder", "Admin", new { area="admin" })">Unshipped Order</a>
+                        <a class="collapse-item" href="@Url.Action("pandingOrder", "Admin", new { area="admin" })">Pending Order</a>
+                        <a class="collapse-item" href="@Url.Action("rejectedOrder", "Admin", new { area="admin" })">Rejected Order</a>
+                        <a class="collapse-item" href="@Url.Action("deliveredorder", "Admin", new { area = "admin" })">Delivered Order</a>
+                        <a class="collapse-item" href="@Url.Action("outfordeliverOrder", "Admin", new { area = "admin" })">Out For Delivery </a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#return" aria-expanded="true"
+                   aria-controls="collapseForm">
+                    <i class="fa fa-undo"></i>
+                    <span>Return Order </span>
+                </a>
+                <div id="return" class="collapse " aria-labelledby="headingForm" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="@Url.Action("returnpanding", "Admin", new { area="admin" })">Pending Request</a>
+                        <a class="collapse-item" href="@Url.Action("returnaccepted", "Admin", new { area = "admin" })">Accepted Request</a>
+                        <a class="collapse-item" href="@Url.Action("returnrejected", "Admin", new { area = "admin" })">Rejected Request</a>
+
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("coupen", "Admin", new { area = "admin" })">
+                    <i class="fa fa-gift"></i>
+                    <span>Coupens</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("reviews", "Admin", new { area = "admin" })">
+                    <i class="fa fa-comments"></i>
+                    <span>Reviews</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("userList", "Admin", new { area = "admin" })">
+                    <i class="fas fa-user"></i>
+                    <span>Customers</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="@Url.Action("home", "Home", new { area="User" })">
+                    <i class="fa fa-shopping-cart "></i>
+                    <span>Shopping</span>
+                </a>
+            </li>
+
+        </ul>
+        <!-- Sidebar -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <!-- TopBar -->
+                <nav class=" navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+                    <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <span id="alertcount" class="badge badge-danger badge-counter"></span>
+                            </a>
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alerts Center
+                                </h6>
+                                <div id="recentalert">
+
+                                </div>
+
+                            </div>
+                        </li>
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+
+                                <span class="ml-2 d-none d-lg-inline text-white small">Hello, @Session["user_name"]</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="@Url.Action("profile", "Profile", new { area="admin" })">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    User Details
+                                </a>
+                                <a class="dropdown-item" href="@Url.Action("addressbook", "Profile", new { area = "admin" })">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Address Book
+                                </a>
+                              
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                @RenderBody()
+
+
+                <!-- Topbar -->
+                <!-- Container Fluid-->
+                <!-- Modal Logout -->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to logout?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+
+                                <a href="@Url.Action("logout","Login",new { area="" })" class="btn btn-primary">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!---Container Fluid-->
+        </div>
+        <!-- Footer -->
+        <!-- Footer -->
+    </div>
+    </div>
+
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <script src="~/Content/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Content/js/ruang-admin.min.js"></script>
+    <script src="~/Content/vendor/chart.js/Chart.min.js"></script>
+    <script src="~/Content/js/demo/chart-area-demo.js"></script>
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable(); // ID From dataTable
+            $('#dataTableHover').DataTable(); // ID From dataTable with Hover
+            $('.dataTables_length').parent().css('display', 'none');
+        });
+    </script>
+
+    <script>
+        $('#simple-date1 .input-group.date').datepicker({
+            format: 'mm/dd/yyyy',
+            todayBtn: 'linked',
+            todayHighlight: true,
+            autoclose: true,
+        });
+
+        $('#simple-date4 .input-daterange').datepicker({
+            format: 'mm/dd/yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            todayBtn: 'linked',
+        });
+    </script>
+    <script src="~/Content/js/category.js"></script>
+    <script src="~/Content/js/demo/chart-pie-demo.js"></script>
+
+    <script src="~/Content/js/reviews.js"></script>
+    <script>
+        $.ajax({
+            type: "POST",
+            url: "/admin/Admin/recentalert",
+            success: function (result) {
+                var i = 0;
+                var s = "";
+                for (i = 0; i < result.data.length; i++) {
+                    var orderdetail = "";
+                    for (var j = 0; j < result.data[i].productlist.length; j++) {
+                        if (j != result.data[i].productlist.length - 1)
+                            orderdetail += result.data[i].productlist[j] + ",<br>";
+                        else
+                            orderdetail += result.data[i].productlist[j] + "<br>";
+                    }
+                    s += "<a class='dropdown-item d-flex align-items-center' >" +
+
+                        "<div class='font-weight-bold'>" +
+                        "<div class='text-truncate'>" +
+                        orderdetail +
+                        "</div>" +
+                        "<div class='small text-gray-500'>" + result.data[i].customername + "</div>" +
+                        "</div>" +
+                        "   </a>";
+                }
+
+                $('#recentalert').html(s);
+                $('#alertcount').html(result.count);
+            }
+        })
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,539 @@
+﻿
+@{ Layout = null; }
+<!DOCTYPE html>
+
+@{ Layout = null; }
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" type="text/css" href="~/Includes/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/MagnificPopup/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Includes/css/main.css">
+    <link href="~/Content/css/style.css" type="text/css"  rel="stylesheet" />
+    <script src="~/Includes/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body class="animsition">
+
+    <!-- Header -->
+    <header class="header-v2 bar">
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <!-- Topbar -->
+
+
+
+            <div class="wrap-menu-desktop">
+                <nav class="limiter-menu-desktop container">
+
+                    <!-- Logo desktop -->
+                    <a href="#" class="logo">
+                        <img src="~/Includes/images/icons/logo-01.png" alt="IMG-LOGO">
+                    </a>
+
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+                        <ul class="main-menu">
+                            <li>
+                                <a href="@Url.Action("home","Home",new { area="User"})">Home</a>
+                            </li>
+
+
+                            <li>
+                                <a href="@Url.Action("shop","Home",new { area="User"})">Category</a>
+                            </li>
+
+                            <li>
+                                <a href="@Url.Action("orderstatus","Home",new { area="User"})">Order</a>
+                            </li>
+
+                            <li>
+                                <a href="#">Profile</a>
+                                <ul class="sub-menu">
+                                    <li><a href="@Url.Action("profile","UserProfile",new { area="User"})">User Details</a></li>
+                                    <li><a href="@Url.Action("addressbook","UserProfile",new { area="User" })">Manage Address</a></li>
+
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <!-- Icon header -->
+                    <div class="wrap-icon-header flex-w flex-r-m">
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                            <a href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false" style="color:black">
+                                <i class="zmdi zmdi-search"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                 aria-labelledby="searchDropdown" style="width: auto">
+                                <form action="/User/Home/search" method="get" class="navbar-search" style="width: 25rem">
+                                    <div class="input-group">
+                                        <input id="search-input" name="searchinput" type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
+                                               aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="zmdi zmdi-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <a href="@Url.Action("cart","Home",new { area="User"})" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" id="cart-no" data-notify="">
+                            <i class="zmdi zmdi-shopping-cart"></i>
+                        </a>
+
+                        <a href="@Url.Action("wishlist", "Home", new { area = "User" })" class=" dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" id="wishlist-no" data-notify="">
+                            <i class="zmdi zmdi-favorite-outline"></i>
+                        </a>
+                        <a style="margin-left:25px;padding-left: 25px;border-left: 3px solid;font-family: Poppins-Medium;">
+
+                            <span> Hello,<br /> @Session["user_name"]</span>
+                        </a>
+                        <a class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </nav>
+                <!--logout model-->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to logout?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+
+                                <a href="@Url.Action("logout","Login",new { area="" })" class="btn btn-primary">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a href="@Url.Action("home","Home",new { area="User"})"><img src="~/Includes/images/icons/logo-01.png" alt="IMG-LOGO"></a>
+            </div>
+
+            <!-- Icon header -->
+            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+                    <a href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" style="color:black">
+                        <i class="zmdi zmdi-search"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                         aria-labelledby="searchDropdown" style="width: auto">
+                        <form class="navbar-search" style="width: 22rem">
+                            <div class="input-group">
+                                <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
+                                       aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" id="search-btn">
+                                        <i class="zmdi zmdi-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <a href="@Url.Action("cart","Home",new { area="User"})" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" id="mobile-cart-no" data-notify="">
+                    <i class="zmdi zmdi-shopping-cart"></i>
+                </a>
+                <a href="@Url.Action("wishlist","Home",new { area="User"})" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" id="mobile-wishlist-no" data-notify="">
+                    <i class="zmdi zmdi-favorite-outline"></i>
+                </a>
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Menu Mobile -->
+        <div class="menu-mobile">
+
+
+
+            <ul class="main-menu-m">
+                <li>
+                    <a href="/User/Home/home">Home</a>
+
+
+                </li>
+
+                <li>
+                    <a href="/User/Home/shop">Category</a>
+                </li>
+
+
+
+                <li>
+                    <a href="/User/Home/orderstatus">Order</a>
+                </li>
+
+                <li>
+                    <a href="#">Profile</a>
+                    <ul class="sub-menu-m">
+                        <li><a href="/User/UserProfile/profile">User Details</a></li>
+                        <li><a href="/User/UserProfile/addressbook">Manage Address</a></li>
+                    </ul>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+
+
+                <li>
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal2"> <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="modal fade" id="logoutModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to logout?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+
+                        <a href="/Login/logout" class="btn btn-primary">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal Search -->
+        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+            <div class="container-search-header">
+                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                    <img src="~/Includes/images/icons/icon-close2.png" alt="CLOSE">
+                </button>
+
+                <form class="wrap-search-header flex-w p-l-15">
+                    <button class="flex-c-m trans-04">
+                        <i class="zmdi zmdi-search"></i>
+                    </button>
+                    <input class="plh3" type="text" name="search" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </header>
+
+
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer class="bg3 p-t-94">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Quick Link
+                    </h4>
+
+                    <ul>
+                        <li class="p-b-10">
+                            <a href="@Url.Action("home","Home",new { area="User"})" class="stext-107 cl7 hov-cl1 trans-04">
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="@Url.Action("shop","Home",new { area="User"})" class="stext-107 cl7 hov-cl1 trans-04">
+                                Shop
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="@Url.Action("orderstatus","Home",new { area="User"})" class="stext-107 cl7 hov-cl1 trans-04">
+                                Order
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="@Url.Action("profile","UserProfile",new { area="User"})" class="stext-107 cl7 hov-cl1 trans-04">
+                                Profile
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Categories
+                    </h4>
+
+                    <ul>
+                        <li class="p-b-10">
+                            <a href="@Url.Action("tracking", "Home", new {area="User" })" class="stext-107 cl7 hov-cl1 trans-04">
+                                Fashion
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="@Url.Action("shop", "Home", new { area="User"})" class="stext-107 cl7 hov-cl1 trans-04">
+                                Electronics
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="@Url.Action("shop", "Home", new { area="User"})" class="stext-107 cl7 hov-cl1 trans-04">
+                                Home & Kitchen
+                            </a>
+                        </li>
+
+                        <li class="p-b-10">
+                            <a href="@Url.Action("shop", "Home", new { area="User"})" class="stext-107 cl7 hov-cl1 trans-04">
+                                Books
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        GET IN TOUCH
+                    </h4>
+
+                    <p class="stext-107 cl7 size-201">
+                        Any questions? Let us know at admin@gmail.com <br />
+
+                    </p>
+
+                    <div class="p-t-27">
+                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+
+                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+
+                        <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+                            <i class="fa fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3 p-b-50">
+                    <h4 class="stext-301 cl0 p-b-30">
+                        Contact us
+                    </h4>
+
+
+                    <p class="stext-107 cl7 size-201"><i class="fa fa-phone"></i>&nbsp : &nbsp (+91) 9574246555</p>
+
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2021 Copyright
+
+        </div>
+
+    </footer>
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+    </div>
+
+   
+
+    <!--===============================================================================================-->
+    
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Includes/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/select2/select2.min.js"></script>
+    <script>
+        $(".js-select2").each(function () {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Includes/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/slick/slick.min.js"></script>
+    <script src="~/Includes/js/slick-custom.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/parallax100/parallax100.js"></script>
+    <script>
+        $('.parallax100').parallax100();
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+    <script>
+        $('.gallery-lb').each(function () { // the containers for all your galleries
+            $(this).magnificPopup({
+                delegate: 'a', // the selector for gallery item
+                type: 'image',
+                gallery: {
+                    enabled: true
+                },
+                mainClass: 'mfp-fade'
+            });
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/isotope/isotope.pkgd.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/sweetalert/sweetalert.min.js"></script>
+    <script>
+        $('.js-addwish-b2').on('click', function (e) {
+            e.preventDefault();
+        });
+
+        $('.js-addwish-b2').each(function () {
+            var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
+
+                $(this).addClass('js-addedwish-b2');
+                $(this).off('click');
+            });
+        });
+
+        $('.js-addwish-detail').each(function () {
+            var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+            $(this).on('click', function () {
+                swal(nameProduct, "is added to wishlist !", "success");
+
+                $(this).addClass('js-addedwish-detail');
+                $(this).off('click');
+            });
+        });
+
+        /*---------------------------------------------*/
+
+        
+
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script>
+        $('.js-pscroll').each(function () {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
+            });
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+           
+            $.ajax({
+                type: "POST",
+                url: "/User/Home/getcartitemno",
+                success: function (result) {
+                    $("#cart-no").attr("data-notify", result.data);
+                    $("#mobile-cart-no").attr("data-notify", result.data);
+                }
+            })
+
+            $.ajax({
+                type: "POST",
+                url: "/User/Home/getwishlistitemno",
+                success: function (result) {
+                    $("#wishlist-no").attr("data-notify", result.data);
+                    $("#mobile-wishlist-no").attr("data-notify", result.data);
+                }
+            })
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/Includes/js/main.js"></script>
+    <script>
+
+    function reloadwhislistcount() {
+        $.ajax({
+            type: "POST",
+            url: "/User/Home/getwishlistitemno",
+            success: function (result) {
+                $("#wishlist-no").attr("data-notify", result.data);
+            }
+        })
+    }
+    </script>
+    <!--search script-->
+  
+   
+</body>
+</html>
+
+
+
+

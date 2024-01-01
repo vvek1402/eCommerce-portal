@@ -1,0 +1,294 @@
+﻿@model E_Commerce.Models.User_account
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+
+}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        </ol>
+    </div>
+    <div class="row mb-3">
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Total Earnings</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Rs.<span id="earning">0</span></div>
+
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Earnings (Annual) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Sales</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="sales">0</span></div>
+
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-shopping-cart fa-2x text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- New User Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Total User</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><span id="totaluser">0</span></div>
+
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Unshipped Orders</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="unshippedorders">0</span></div>
+
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- ADD product Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1"><a href="@Url.Action("simpleform", "Admin", new { area="admin" })">Add New Product</a></div>
+
+
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-folder-plus fa-3x text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!--Manage Inventory  Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1"><a href="@Url.Action("product", "Admin", new { area="admin" })">Manage Inventory</a></div>
+
+
+                            </div>
+                            <div class="col-auto">
+                                <i class=" fa fa-clone fa-3x text-info"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Manage Orders Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1"><a href="@Url.Action("manageOrder", "Admin", new { area="admin" })">Manage Orders</a></div>
+
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-list-alt fa-3x text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!--View Profile Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1"><a href="@Url.Action("profile", "Profile", new { area="admin" })"> Profile</a></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-user fa-3x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- Area Chart -->
+        <div class="col-xl-7 col-lg-7">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Selling Report</h6>
+                    
+                </div>
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myAreaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pie Chart -->
+        <div class="col-xl-5 col-lg-5">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Products Sold</h6>
+                    
+                </div>
+                <div class="card-body">
+                    <div id="chart"></div>
+                </div> 
+            </div>
+        </div>
+        <!-- Invoice Example -->
+        <div class="col-xl-12 col-lg-12 mb-12">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Recent Panding Orders</h6>
+                    <a class="m-0 float-right btn btn-info btn-sm" href="@Url.Action("pandingOrder", "Admin", new { area="admin" })">
+                        View More <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Order No</th>
+                                <th>Order Date</th>
+                                <th>Customer</th>
+                                <th>Order</th>
+                                <th>Payment Mode</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentorders">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+        <!-- Message From Customer-->
+        <div class="col-xl-12 col-lg-12 ">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Reviews</h6>
+                </div>
+                <div>
+                    <div id="reviews"></div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Row-->
+    <!-- Modal Logout -->
+  
+</div>
+
+<script>
+    $(document).ready(function () {
+           
+        $.ajax({
+            type: "POST",
+            url: "/admin/Admin/gettotalearning",
+            success: function (result) {
+                $('#earning').html(result.earning);
+                $('#sales').html(result.sales);
+            }
+        })
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/Admin/getunshippedorders",
+            success: function (result) {
+                $('#unshippedorders').html(result.count);
+            }
+        })
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/Admin/totaluser",
+            success: function (result) {
+                $('#totaluser').html(result.count);
+            }
+        })
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/Admin/recentorders",
+            success: function (result) {
+                var i = 0;
+                var s = "";
+                for (i = 0 ; i < result.data.length ; i++) {
+                    var orderdetail = "";
+                    for (var j = 0; j < result.data[i].productlist.length; j++)
+                    {
+                        if (j != result.data[i].productlist.length-1)
+                           orderdetail += result.data[i].productlist[j] + ",<br>";
+                        else
+                            orderdetail += result.data[i].productlist[j] + "<br>";
+                    }
+                    s += "<tr>"+
+                                "<td>" + result.data[i].order_no + "</td>" +
+                                "<td>" + result.data[i].orderdate + "</td>" +
+                                "<td>" + result.data[i].customername + "</td>" +
+                                "<td>" + orderdetail +"</td>" +
+                                "<td>" + result.data[i].paymentmode + "</td>" +
+                          "</tr>";
+                }
+
+                $('#recentorders').html(s);
+            }
+        })
+    })
+</script>

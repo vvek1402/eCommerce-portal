@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities1">
+    <EntitySetMapping Name="address_type">
+      <EntityTypeMapping TypeName="Model.address_type">
+        <MappingFragment StoreEntitySet="address_type">
+          <ScalarProperty Name="address_type_id" ColumnName="address_type_id" />
+          <ScalarProperty Name="address_type1" ColumnName="address_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="card_company">
+      <EntityTypeMapping TypeName="Model.card_company">
+        <MappingFragment StoreEntitySet="card_company">
+          <ScalarProperty Name="card_company_id" ColumnName="card_company_id" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="card_detail">
+      <EntityTypeMapping TypeName="Model.card_detail">
+        <MappingFragment StoreEntitySet="card_detail">
+          <ScalarProperty Name="card_detail_id" ColumnName="card_detail_id" />
+          <ScalarProperty Name="card_no" ColumnName="card_no" />
+          <ScalarProperty Name="expiry_date" ColumnName="expiry_date" />
+          <ScalarProperty Name="card_holder_name" ColumnName="card_holder_name" />
+          <ScalarProperty Name="card_company_id" ColumnName="card_company_id" />
+          <ScalarProperty Name="card_type_id" ColumnName="card_type_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="card_type">
+      <EntityTypeMapping TypeName="Model.card_type">
+        <MappingFragment StoreEntitySet="card_type">
+          <ScalarProperty Name="card_type_id" ColumnName="card_type_id" />
+          <ScalarProperty Name="type_name" ColumnName="type_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="Model.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="category_name" ColumnName="category_name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cities">
+      <EntityTypeMapping TypeName="Model.city">
+        <MappingFragment StoreEntitySet="city">
+          <ScalarProperty Name="city_id" ColumnName="city_id" />
+          <ScalarProperty Name="city_name" ColumnName="city_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Countries">
+      <EntityTypeMapping TypeName="Model.Country">
+        <MappingFragment StoreEntitySet="Country">
+          <ScalarProperty Name="Country_id" ColumnName="Country_id" />
+          <ScalarProperty Name="Country_name" ColumnName="Country_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="currency_type">
+      <EntityTypeMapping TypeName="Model.currency_type">
+        <MappingFragment StoreEntitySet="currency_type">
+          <ScalarProperty Name="currency_type_id" ColumnName="currency_type_id" />
+          <ScalarProperty Name="currency_type1" ColumnName="currency_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="images">
+      <EntityTypeMapping TypeName="Model.image">
+        <MappingFragment StoreEntitySet="images">
+          <ScalarProperty Name="image_id" ColumnName="image_id" />
+          <ScalarProperty Name="product_variant_id" ColumnName="product_variant_id" />
+          <ScalarProperty Name="main_image" ColumnName="main_image" />
+          <ScalarProperty Name="image1" ColumnName="image1" />
+          <ScalarProperty Name="image2" ColumnName="image2" />
+          <ScalarProperty Name="image3" ColumnName="image3" />
+          <ScalarProperty Name="image4" ColumnName="image4" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NetBanking_detail">
+      <EntityTypeMapping TypeName="Model.NetBanking_detail">
+        <MappingFragment StoreEntitySet="NetBanking_detail">
+          <ScalarProperty Name="netbanking_detail_id" ColumnName="netbanking_detail_id" />
+          <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="order_status">
+      <EntityTypeMapping TypeName="Model.order_status">
+        <MappingFragment StoreEntitySet="order_status">
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payment_detail">
+      <EntityTypeMapping TypeName="Model.payment_detail">
+        <MappingFragment StoreEntitySet="payment_detail">
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="netbanking_detail_id" ColumnName="netbanking_detail_id" />
+          <ScalarProperty Name="card_detail_id" ColumnName="card_detail_id" />
+          <ScalarProperty Name="transaction_no" ColumnName="transaction_no" />
+          <ScalarProperty Name="transaction_status_id" ColumnName="transaction_status_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payment_mode">
+      <EntityTypeMapping TypeName="Model.payment_mode">
+        <MappingFragment StoreEntitySet="payment_mode">
+          <ScalarProperty Name="payment_mode_id" ColumnName="payment_mode_id" />
+          <ScalarProperty Name="payment_mode1" ColumnName="payment_mode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="price_decision_factor">
+      <EntityTypeMapping TypeName="Model.price_decision_factor">
+        <MappingFragment StoreEntitySet="price_decision_factor">
+          <ScalarProperty Name="price_factor_id" ColumnName="price_factor_id" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="Model.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="no_users_rated" ColumnName="no_users_rated" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+          <ScalarProperty Name="price_factor_id" ColumnName="price_factor_id" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+          <ScalarProperty Name="sub_category_id" ColumnName="sub_category_id" />
+          <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+          <ScalarProperty Name="shipping_rate" ColumnName="shipping_rate" />
+          <ScalarProperty Name="sku" ColumnName="sku" />
+          <ScalarProperty Name="isvariant" ColumnName="isvariant" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_variant_value">
+      <EntityTypeMapping TypeName="Model.product_variant_value">
+        <MappingFragment StoreEntitySet="product_variant_value">
+          <ScalarProperty Name="product_variant_id" ColumnName="product_variant_id" />
+          <ScalarProperty Name="product_variant_title" ColumnName="product_variant_title" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="variant_value_id" ColumnName="variant_value_id" />
+          <ScalarProperty Name="MRP" ColumnName="MRP" />
+          <ScalarProperty Name="Selling_price" ColumnName="Selling_price" />
+          <ScalarProperty Name="discount" ColumnName="discount" />
+          <ScalarProperty Name="discount_min_quantity" ColumnName="discount_min_quantity" />
+          <ScalarProperty Name="discount_max_quantity" ColumnName="discount_max_quantity" />
+          <ScalarProperty Name="weight" ColumnName="weight" />
+          <ScalarProperty Name="unit_in_stock" ColumnName="unit_in_stock" />
+          <ScalarProperty Name="max_purchase_quantity" ColumnName="max_purchase_quantity" />
+          <ScalarProperty Name="quantity_per_unit" ColumnName="quantity_per_unit" />
+          <ScalarProperty Name="sku" ColumnName="sku" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="Model.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+          <ScalarProperty Name="role_name" ColumnName="role_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sub_category">
+      <EntityTypeMapping TypeName="Model.sub_category">
+        <MappingFragment StoreEntitySet="sub_category">
+          <ScalarProperty Name="sub_category_id" ColumnName="sub_category_id" />
+          <ScalarProperty Name="sub_category_name" ColumnName="sub_category_name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="Isactive" ColumnName="Isactive" />
+          <ScalarProperty Name="category_id" ColumnName="category_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transaction_status">
+      <EntityTypeMapping TypeName="Model.transaction_status">
+        <MappingFragment StoreEntitySet="transaction_status">
+          <ScalarProperty Name="transaction_status_id" ColumnName="transaction_status_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_account">
+      <EntityTypeMapping TypeName="Model.User_account">
+        <MappingFragment StoreEntitySet="User_account">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email_id" ColumnName="email_id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+          <ScalarProperty Name="role_id" ColumnName="role_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_address">
+      <EntityTypeMapping TypeName="Model.User_address">
+        <MappingFragment StoreEntitySet="User_address">
+          <ScalarProperty Name="user_add_id" ColumnName="user_add_id" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="pincode" ColumnName="pincode" />
+          <ScalarProperty Name="city_id" ColumnName="city_id" />
+          <ScalarProperty Name="country_id" ColumnName="country_id" />
+          <ScalarProperty Name="address_type_id" ColumnName="address_type_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="isdefault" ColumnName="isdefault" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="variants">
+      <EntityTypeMapping TypeName="Model.variant">
+        <MappingFragment StoreEntitySet="variant">
+          <ScalarProperty Name="variant_id" ColumnName="variant_id" />
+          <ScalarProperty Name="variant_name" ColumnName="variant_name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="sub_category_id" ColumnName="sub_category_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="variant_value">
+      <EntityTypeMapping TypeName="Model.variant_value">
+        <MappingFragment StoreEntitySet="variant_value">
+          <ScalarProperty Name="variant_value_id" ColumnName="variant_value_id" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="variant_id" ColumnName="variant_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="wishlists">
+      <EntityTypeMapping TypeName="Model.wishlist">
+        <MappingFragment StoreEntitySet="wishlist">
+          <ScalarProperty Name="wishlist_id" ColumnName="wishlist_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="product_variant_id" ColumnName="product_variant_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="carts">
+      <EntityTypeMapping TypeName="Model.cart">
+        <MappingFragment StoreEntitySet="cart">
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="product_variant_id" ColumnName="product_variant_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="cart_id" ColumnName="cart_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="Model.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="shiprate" ColumnName="shiprate" />
+          <ScalarProperty Name="coupen_id" ColumnName="coupen_id" />
+          <ScalarProperty Name="payment_mode_id" ColumnName="payment_mode_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="shipping_add" ColumnName="shipping_add" />
+          <ScalarProperty Name="billing_add" ColumnName="billing_add" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="shipdate" ColumnName="shipdate" />
+          <ScalarProperty Name="order_date" ColumnName="order_date" />
+          <ScalarProperty Name="order_no" ColumnName="order_no" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order_detail">
+      <EntityTypeMapping TypeName="Model.Order_detail">
+        <MappingFragment StoreEntitySet="Order_detail">
+          <ScalarProperty Name="currency_type_id" ColumnName="currency_type_id" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="product_variant_id" ColumnName="product_variant_id" />
+          <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="order_detail_id" ColumnName="order_detail_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reviews">
+      <EntityTypeMapping TypeName="Model.review">
+        <MappingFragment StoreEntitySet="review">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="product_variant_id" ColumnName="product_variant_id" />
+          <ScalarProperty Name="star" ColumnName="star" />
+          <ScalarProperty Name="review1" ColumnName="review" />
+          <ScalarProperty Name="review_id" ColumnName="review_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="coupens">
+      <EntityTypeMapping TypeName="Model.coupen">
+        <MappingFragment StoreEntitySet="coupen">
+          <ScalarProperty Name="maximum_purchase_price" ColumnName="maximum_purchase_price" />
+          <ScalarProperty Name="minimun_purchase_price" ColumnName="minimun_purchase_price" />
+          <ScalarProperty Name="discount_rate" ColumnName="discount_rate" />
+          <ScalarProperty Name="ending_date" ColumnName="ending_date" />
+          <ScalarProperty Name="starting_date" ColumnName="starting_date" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="coupen_id" ColumnName="coupen_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="return_reason">
+      <EntityTypeMapping TypeName="Model.return_reason">
+        <MappingFragment StoreEntitySet="return_reason">
+          <ScalarProperty Name="return_reason1" ColumnName="return_reason" />
+          <ScalarProperty Name="return_reason_id" ColumnName="return_reason_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="return_status">
+      <EntityTypeMapping TypeName="Model.return_status">
+        <MappingFragment StoreEntitySet="return_status">
+          <ScalarProperty Name="return_status1" ColumnName="return_status" />
+          <ScalarProperty Name="return_status_id" ColumnName="return_status_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="order_return">
+      <EntityTypeMapping TypeName="Model.order_return">
+        <MappingFragment StoreEntitySet="order_return">
+          <ScalarProperty Name="return_pickup_date" ColumnName="return_pickup_date" />
+          <ScalarProperty Name="return_reason_id" ColumnName="return_reason_id" />
+          <ScalarProperty Name="return_status_id" ColumnName="return_status_id" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="order_return_id" ColumnName="order_return_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

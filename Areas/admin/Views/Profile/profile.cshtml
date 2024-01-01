@@ -1,0 +1,83 @@
+﻿@model E_Commerce.Models.UserDetails
+@{
+    ViewBag.Title = "profile";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+    <div class="tab-content">
+        <div id="profile" class="row tab-pane active">
+            <div class="col-lg-6">
+                <form class="form" action="" method="post" id="registrationForm">
+                    <div class="row div-margin-top">
+                        <div class="col-lg-12 div-margin-bottom">
+                            <label for="first_name"><h4>Full Name</h4></label>
+                              @Html.TextBoxFor(x => x.name, new { @class = "form-control ", @placeholder = "Enter Name", @Value = @Model.user_account.name })
+                        </div>
+
+
+                        <div class="col-lg-12 div-margin-bottom">
+                            <label for="mobile"><h4>Mobile</h4></label>
+                            @Html.TextBoxFor(x => x.mobile_no, new { @class = "form-control ", @placeholder = "Enter Mobile Number", @Value = @Model.user_account.mobile_no })
+
+                            <div style="color:red; text-align:left;">
+                                @ViewBag.error1
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-12 div-margin-bottom">
+                            <label for="email"><h4>Email</h4></label>
+                            @Html.TextBoxFor(x => x.email_id, new { @class = "form-control ", @placeholder = "Enter Email_id", @Value = @Model.user_account.email_id })
+
+                            <div style="color:red; text-align:left;">
+                                @ViewBag.error
+                            </div>
+                        </div>
+
+                        @{
+                            var defaultAdd = Model.addresslist.Where(x => x.isdefault == 1).SingleOrDefault();
+                            if (defaultAdd == null)
+                            {
+                                <div class="col-lg-12 div-margin-bottom">
+                                    <label for="email"><h4>Address</h4></label>
+                                    <textarea name="address" class="form-control" id="address" rows="5">Add default Address</textarea>
+                                </div>
+                            }
+                            else
+                            {
+                                var city = Model.cityList.Where(x => x.city_id == @defaultAdd.city_id).SingleOrDefault();
+                                var country = Model.countryList.Where(x => x.Country_id == @defaultAdd.country_id).SingleOrDefault();
+                                <div class="col-lg-12 div-margin-bottom">
+                                    <label for="email"><h4>Address</h4></label>
+                                    <textarea readonly name="address" class="form-control" id="address" rows="5">@defaultAdd.address,
+@city.city_name ,@defaultAdd.pincode,
+@country.Country_name.
+                                </textarea>
+                            </div>
+                            }
+                        }
+                        <div class="col-lg-12 div-margin-bottom">
+                            <button class="btn btn-lg btn-primary" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    function displayform() {
+        var x = document.getElementById("add-form");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>

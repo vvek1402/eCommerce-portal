@@ -1,0 +1,54 @@
+﻿
+@model E_Commerce.Models.CartViewModel
+@{
+    Layout = null;
+}
+
+
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="2">Product</th>
+                        <th>Price</th>
+                        <th>Cart</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.wishlistList.Count == 0)
+                    {
+                        <tr><td colspan="5" style="text-align:center;">Your Wishlist is Empty</td></tr>
+                    }
+                    @foreach (var cartitem in Model.wishlistList)
+                    {
+                        var product = Model.productVariantList.Where(x => x.product_variant_id == cartitem.product_variant_id).SingleOrDefault();
+                        var image = Model.productImageList.Where(x => x.product_variant_id == product.product_variant_id).SingleOrDefault();
+
+                        <tr class="table_row" ng-init="title='@product.product_variant_title'">
+                            <td class="column-1">
+                                <div class="how-itemcart1">
+                                    <img src="@image.main_image" style="width:60px; height:80px;" alt="IMG">
+                                </div>
+                            </td>
+                            <td class="column-2">@product.product_variant_title</td>
+                            <td class="column-3">Rs. <span id="price">@product.Selling_price</span></td>
+
+
+                            <td class="column-4">
+                                <button  ng-click="addcart(@product.product_variant_id)">
+                                   <i class="fa fa-shopping-cart"></i>
+                                </button>
+                            </td>
+
+                            <td class="column-5">
+
+                                <button onclick="removewishlist(@cartitem.wishlist_id)">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+   

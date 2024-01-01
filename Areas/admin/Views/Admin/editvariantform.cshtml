@@ -1,0 +1,155 @@
+﻿@model E_Commerce.Models.CascadingCatSubCat
+
+@{
+    ViewBag.Title = "Add product";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col-lg-12">
+        <div class="card mb-4">
+
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="dataTableHover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Is Active</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Variant Name</th>
+                            <th>Variant Value</th>
+                            <th>SKU</th>
+                            <th>Stock</th>
+                            <th>Selling Price</th>
+                            <th>MRP</th>
+                            <th>Discount</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var product in Model.productvariantList)
+                        {
+                            var variantvalue = Model.variantvalueList.Where(x => x.variant_value_id == product.variant_value_id).SingleOrDefault();
+                            var variant = Model.variantList.Where(x => x.variant_id == variantvalue.variant_id).SingleOrDefault();
+                            var img = Model.ImageList.Where(x => x.product_variant_id == product.product_variant_id).SingleOrDefault();
+                            <tr>
+                                <td>True</td>
+                                <td><img src="@img.main_image" atl="" width="100px" height="100px"></td>
+                                <td>@ViewBag.ProductTitle</td>
+                                <td>@product.sku</td>
+                                <td>@variant.variant_name</td>
+                                <td>@variantvalue.value</td>
+                                <td>@product.unit_in_stock</td>
+                                <td>@product.Selling_price</td>
+                                <td>@product.MRP</td>
+                                <td>@product.discount</td>
+                                <td>
+                                    <a href="@Url.Action("editVariant", "Admin", new { area="admin" ,id=product.product_variant_id})">
+                                        <i class="fas fa-edit text-info"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <button type="button" id="removebtn" class="btn">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" style="padding:20px;">
+    <form class="form-horizontal" action="" method="post">
+        <div class="form-group" style="width: 100%;">
+            <label class="control-label col-sm-2" for="">
+                Category *
+            </label>
+            <div class="col-sm-6 form-holder">
+
+                @if (ViewBag.CategoryList != null)
+                {
+                    @Html.DropDownListFor(model => model.category_id, ViewBag.CategoryList as SelectList, "--Select Category--", new { @class = "form-control" })
+                }
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </div>
+        <div class="form-group" style="width: 100%;">
+            <label class="control-label col-sm-4" for="">
+                Sub Category *
+            </label>
+            <div class="col-sm-6 form-holder">
+                @Html.DropDownListFor(model => model.sub_category_id, ViewBag.SubCategoryList as SelectList, new { @class = "form-control" })
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="sku">Product SKU Id:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.sku, new { @class = "form-control ", @placeholder = "SKU ID" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="title">Product Title:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.title, new { @class = "form-control item", @placeholder = "Enter Product Title" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="description">Other Product Detail:</label>
+            <div class="col-sm-6">
+                @Html.TextAreaFor(x => x.description, new { @class = "ckeditor" })
+            </div>
+        </div>
+
+
+        <div class="form-group" style="width: 100%;">
+            <label class="control-label col-sm-4" for="">
+                Price Factor *
+            </label>
+            <div class="col-sm-6 form-holder">
+                @if (ViewBag.PriceFactorList != null)
+                {
+                    @Html.DropDownListFor(x => x.price_factor_id, ViewBag.PriceFactorList as SelectList, new { @class = "form-control" })
+                }
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="shippingrate">Shipping rate:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.shipping_rate, new { @class = "form-control ", @placeholder = "Enter shippingrate" })
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#category_id option[value="@Model.cat.category_id"]').attr("selected", "selected");
+
+        $('#sub_category_id option[value="@Model.subcat.sub_category_id"]').attr("selected", "selected");
+s
+        $("#category_id").change(function () {
+            $.get("/admin/Admin/GetSubCategoryList", { category_id: $("#category_id").val() }, function (data) {
+                $("#sub_category_id").empty();
+                $.each(data, function (index, row) {
+                    $("#sub_category_id").append("<option value='" + row.sub_category_id + "'>" + row.sub_category_name + "</option>")
+                });
+            });
+        })
+    });
+</script>

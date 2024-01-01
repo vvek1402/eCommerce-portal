@@ -1,0 +1,40 @@
+﻿@model E_Commerce.Models.UserDetails
+@{
+    ViewBag.Title = "editAddress";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" id="add-form" style="padding:20px;">
+    <form class="add-form form" action="" method="post" id="registrationForm">
+        <div class="row div-margin-top">
+            <div class="col-lg-6 div-margin-bottom">
+                <label for="first_name"><h4>Address</h4></label>
+                @Html.TextBoxFor(x => x.address, new { @class = "form-control ", @placeholder = "Enter Address",@Value=@Model.address })
+
+            </div>
+
+            <div class="col-lg-6 div-margin-bottom">
+                <label for="mobile"><h4>AddressType</h4></label>
+                @Html.DropDownListFor(model => model.address_type_id, ViewBag.addtypeList as SelectList, "--Select type--", new { @class = "form-control" })
+            </div>
+
+            <div class="col-lg-6 div-margin-bottom">
+                <label for="mobile"><h4>Pincode</h4></label>
+                @Html.TextBoxFor(x => x.pincode, new { @class = "form-control ", @placeholder = "Enter Pincode", @Value = (@Model.pincode == 0) ? "" : @Model.pincode.ToString() })
+            </div>
+
+            <div class="col-lg-6 div-margin-bottom">
+                <label for="email"><h4>City</h4></label>
+                @Html.DropDownListFor(model => model.city_id, ViewBag.cityList as SelectList, "--Select City--", new { @class = "form-control" })
+            </div>
+
+            <div class="col-lg-6 div-margin-bottom">
+                <label for="email"><h4>Country</h4></label>
+                @Html.DropDownListFor(model => model.country_id, ViewBag.countryList as SelectList, "--Select Country--", new { @class = "form-control" })
+            </div>
+            <div class="col-lg-12 div-margin-bottom">
+                <button class="btn btn-lg btn-primary" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+            </div>
+        </div>
+    </form>
+</div>

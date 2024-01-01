@@ -1,0 +1,15 @@
+﻿@model E_Commerce.Models.HomeViewModel
+
+@using E_Commerce.Models
+@{
+    ViewBag.Title = "productdetail";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    Model.selectedvariant = Model.ProductVariantList[0];
+    
+}
+<div class="product-v">
+    @Html.Partial("partialproductdetail", Model)
+</div>

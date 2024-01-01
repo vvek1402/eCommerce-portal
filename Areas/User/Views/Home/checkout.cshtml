@@ -1,0 +1,326 @@
+﻿@model E_Commerce.Models.CheckoutViewModel
+@{
+    ViewBag.Title = "checkout";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table td, .table th {
+        padding: .75rem;
+        vertical-align: middle;
+        border-top: 1px solid #e9ecef;
+    }
+</style>
+<section style="padding:100px 0;">
+    <div class="container" style="text-align:right;">
+        <div class="col-sm-12">
+            <a href="@Url.Action("addressbook", "UserProfile", new { area="User" } )" class="btn btn-primary" style="padding:15px; margin-bottom:15px;"> Manage Address</a>
+        </div>
+    </div>
+    <div class="container" id="ship-table">
+        <div class="col-xl-12 col-lg-12 mb-12">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Select Shipping Address</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th style="width:20px;">Select</th>
+                                <th>Address</th>
+                                <th>Address Type</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var address in Model.addressList)
+                            {
+                                var city = Model.cityList.Where(x => x.city_id == address.city_id).SingleOrDefault();
+                                var country = Model.countryList.Where(x => x.Country_id == address.country_id).SingleOrDefault();
+                                var addresstype = Model.addtypeList.Where(x => x.address_type_id == address.address_type_id).SingleOrDefault(); ;
+                           
+                                <tr>
+                                    @if (address.isdefault == 1)
+                                    {
+                                        <td style="width:20px;"><input type="radio" name="optradio1" value="@address.user_add_id" checked></td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width:20px;"><input type="radio" name="optradio1" value="@address.user_add_id "></td>
+                                    }
+                                    <td>
+                                        @address.address,
+                                        @city.city_name,
+                                        @country.Country_name,
+                                        @address.pincode
+                                    </td>
+                                    <td>@addresstype.address_type1</td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="col-sm-12">
+            <input style="display:inline !important;" type="checkbox" id="myCheck" onclick="myFunction()" checked>
+            <label for="myCheck" style="display:inline !important; margin-left:10px;"> Is Billing Address is same as Shippng Address?</label>
+        </div>
+    </div>
+
+    <div class="container" id="bill-table" style="display:none;padding-top:20px;">
+        <div class="col-xl-12 col-lg-12 mb-12">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Select Billing Address</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th style="width:20px;">Select</th>
+                                <th>Address</th>
+                                <th>Address Type</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var address in Model.addressList)
+                            {
+                                var city = Model.cityList.Where(x => x.city_id == address.city_id).SingleOrDefault();
+                                var country = Model.countryList.Where(x => x.Country_id == address.country_id).SingleOrDefault();
+                                var addresstype = Model.addtypeList.Where(x => x.address_type_id == address.address_type_id).SingleOrDefault(); ;
+
+                                <tr>
+                                    @if (address.isdefault == 1)
+                                    {
+                                        <td style="width:20px;"><input type="radio" name="optradio2" value="@address.user_add_id" checked ></td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width:20px;"><input type="radio" name="optradio2" value="@address.user_add_id"></td>
+                                    }
+                                    <td>
+                                        @address.address,
+                                        @city.city_name,
+                                        @country.Country_name,
+                                        @address.pincode
+                                    </td>
+                                    <td>@addresstype.address_type1</td>
+                                    
+                                </tr>
+                            }
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding-bottom:100px;">
+    <div class="container" id="product-table">
+        <div class="col-xl-12 col-lg-12 mb-12">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Your Order Detail</h6>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th colspan="2">Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var cartitem in Model.cartList)
+                            {
+                                var product = Model.productVariantList.Where(x => x.product_variant_id == cartitem.product_variant_id).SingleOrDefault();
+                                var image = Model.productImageList.Where(x => x.product_variant_id == product.product_variant_id).SingleOrDefault();
+                                Model.GrandTotal += product.Selling_price * cartitem.qty;
+                                <tr class="table_row">
+                                    <td class="column-1">
+                                        <div class="how-itemcart1">
+                                            <img src="@image.main_image" style="width:60px; height:80px;" alt="IMG">
+                                        </div>
+                                    </td>
+                                    <td class="column-2">@product.product_variant_title</td>
+                                    <td class="column-3">Rs. <span id="price">@product.Selling_price</span></td>
+                                    <td class="column-4">
+                                        @cartitem.qty
+                                    </td>
+                                    @{ var total = @product.Selling_price * @cartitem.qty;}
+                                    <td class="column-5">Rs. <span id="total">@total</span></td>
+                                    
+                                </tr>
+
+
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>
+                                    <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5" onclick="checkcoupon()">
+                                            Apply coupon
+                                     </div>
+                                </th>
+                                <th>
+                                    <input id="couponinput" class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
+                                </th>
+                                <th colspan="2">
+                                    <span>Total</span><br> <span >Discount</span> <br> <span>Shipping Rate</span> <br> <span>Total Amount</span>
+                                </th>
+                                @{
+                                    var gtotal = Model.GrandTotal + 20;
+                                }
+                                <th>
+                                    Rs.<span id="total">@Model.GrandTotal</span > <br> Rs.<span id="discount">0</span> <br> Rs.<span id="srate"> 20</span> <br> Rs.<span id="gtotal">@gtotal</span>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class=" col-sm-12  col-md-4">
+            <div class="card">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Select Payment Option</h6>
+                </div>
+                <table class="table align-items-center table-flush">
+                    <tbody>
+                        <tr>
+                            <td><input type="radio" name="optradio3" value="cod" checked> </td>
+                            <td>Case On Delivery</td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="optradio3" value="op"> </td>
+                            <td>Online Payment</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2">
+                                <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5" onclick="createorder()">
+                                    Proceed to Pay
+                                </div>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+</section>
+<script>
+    function myFunction() {
+      var checkBox = document.getElementById("myCheck");
+      var text = document.getElementById("bill-table");
+    
+      if (checkBox.checked == true){
+        text.style.display = "none";
+      } else {
+        text.style.display = "block";
+      }
+    }
+</script>
+<script>
+    var ptotal = 0;
+    $(document).ready(function () {
+        ptotal = '@gtotal';  
+    })
+    function checkcoupon() {
+        var coupon = $('#couponinput').val();
+        if (coupon != "") {
+            $.ajax({
+                type: "POST",
+                url: "/User/Home/checkcoupon",
+                data: { coupon: coupon },
+                success: function (result) {
+                    if (result.isApplied == 1) {
+                        swal({
+                            title: "YAHH!!!",
+                            text: "COUPON APPLIED SUCCESSFULLY",
+                            icon: "success",
+                            button: "OK",
+                        });
+
+                        $('#discount').html(result.rate);
+                        var total = '@gtotal';
+                        ptotal = Number(total) - Number(result.rate);
+                        $('#gtotal').html(Number(total) - Number(result.rate));
+                    }
+                    else if (result.isApplied == 2 || result.isApplied == 3)
+                        swal({
+                            title: "OH NO!!!",
+                            text: "COUPON NOT VALIED",
+                            icon: "error",
+                            button: "OK",
+                        });
+
+                    else if (result.isApplied == 0)
+                        swal({
+                            title: "OH NO!!!",
+                            text: "COUPON NOT FOUND",
+                            icon: "error",
+                            button: "OK",
+                        });
+                    
+                },
+                error: function (result) {
+                    swal({
+                        title: "OH NO!!!",
+                        text: "TRY AGAIN",
+                        icon: "error",
+                        button: "OK",
+                    });
+                }
+            })
+        }
+    }
+
+    function createorder() {
+        var sadd = $('input[name="optradio1"]:checked').val();
+        var checkBox = document.getElementById("myCheck");
+        var coupon = $('#couponinput').val();
+        var badd;
+        if (checkBox.checked == true) {
+            badd = sadd;
+        }
+        else {
+            badd = $('input[name="optradio2"]:checked').val();
+        }
+        var popt = $('input[name="optradio3"]:checked').val();
+        $.ajax({
+            type: "POST",
+            url: "/User/Home/savedata",
+            data: {
+                ptotal: ptotal,
+                sadd: sadd,
+                badd: badd,
+                popt: popt,
+                coupon:coupon
+            },
+            success: function (result) {
+                window.location.href = "/User/Home/CreateOrder";
+            },
+            error: function (result) {
+
+            }
+        });
+    }
+</script>

@@ -1,0 +1,62 @@
+﻿@model E_Commerce.Models.ReviewViewModel
+@{
+    ViewBag.Title = "reviews";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/ruang-admin.min.css" rel="stylesheet" />
+
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Reviews</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Reviews</li>
+        </ol>
+    </div>
+
+    <div class="panel-group" id="accordion">
+        @foreach (var review in Model.reviewList)
+        {
+            var product = Model.productList.Where(x => x.product_id == review.product_id).SingleOrDefault();
+            var user = Model.userList.Where(x => x.user_id == review.user_id).SingleOrDefault();
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_@review.review_id">
+                            <div class="row">
+                                <div class="col-6" style="text-align:left;">
+                                    @product.title
+                                </div>
+                                <div class="col-6" style="text-align:right;">
+                                    @for (int i = 0; i < review.star; i++)
+                                    {
+                                        <i class="fa fa-star" style="color:#f9ba48;"></i>
+                                    }
+                                </div>    
+                                   
+                                  
+
+                            </div>
+                        </a>
+                    </h4>
+
+                </div>
+
+                <div id="collapse_@review.review_id" class="panel-collapse collapse ">
+                    <div class="panel-body">
+                        <h4 style="color:black;"><i class="fa fa-user"></i> @user.name</h4>
+                        <p style="text-align:justify;">@review.review1</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+        
+    
+</div>
+

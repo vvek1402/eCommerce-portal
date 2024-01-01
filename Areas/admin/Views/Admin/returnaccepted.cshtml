@@ -1,0 +1,117 @@
+﻿@model E_Commerce.Models.OrderModel
+@{
+    ViewBag.Title = "manageOrder";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/ruang-admin.min.css" rel="stylesheet" />
+
+<!-- Topbar -->
+<!-- Container Fluid-->
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Accepted</h1>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="./">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Accepted</li>
+        </ol>
+    </div>
+
+
+    <div class="panel-group" id="accordion">
+        @foreach (var order in Model.OrderList)
+        {
+            var status = Model.StatusList.Where(x => x.status_id == order.status_id).SingleOrDefault();
+            var orderdetails = Model.OrderDetailList.Where(x => x.order_id == order.order_id).ToList();
+            var mode = Model.paymentmodeList.Where(x => x.payment_mode_id == order.payment_mode_id).SingleOrDefault();
+            var returnorder =Model.orderReturnList.Where(x=>x.order_id==order.order_id).SingleOrDefault();
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_@order.order_id">
+                            <div class="row">
+                                <div class="col-6" style="text-align:left;">
+                                    <strong>Order No.:</strong>@order.order_no
+                                </div>
+                                <div class="col-6" style="text-align:right;">
+                                    <span class="badge badge-success">Accepted</span>
+                                </div>
+                            </div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_@order.order_id" class="panel-collapse collapse">
+                    <div class="panel-body row">
+                        <div class="col-lg-12">
+                            <p class="header1"><strong>Order Date:</strong> @order.order_date</p>
+                            <p class="header1"><strong>Delivery Date:</strong> @order.shipdate</p>
+                            <p class="header1"><strong>Pickup Date:</strong> @returnorder.return_pickup_date</p>
+                            <p class="header1"><strong>Payment Mode:</strong> @mode.payment_mode1</p>
+                            <table>
+                                @{
+            int count = 0;
+            foreach (var orderdetail in orderdetails)
+            {
+                count = count + 1;
+                var productvariant = Model.ProductVariantList.Where(x => x.product_variant_id == orderdetail.product_variant_id).SingleOrDefault();
+                double total = orderdetail.quantity * productvariant.Selling_price;
+                <tr><td colspan="3"><p class="header2"><strong>@count . PRODUCT TITLE :</strong> @productvariant.product_variant_title</p></td></tr>
+                                    <tr>
+                                        <td><p class="body1"><strong>QTY :</strong> @orderdetail.quantity</p></td>
+                                        <td><p class="body1"><strong>SKU :</strong> @productvariant.sku</p></td>
+                                        <td><p class="body1"><strong>AMOUNT:</strong> @total Rs.</td>
+                                    </tr>
+
+            }
+                                }
+                            </table>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="statusModal_@order.order_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <form action="#" method="post">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Select Pickup Date</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-sm-6 form-holder">
+                                    <div class="form-group" id="simple-date1">
+                                        <label for="simpleDataInput">Select Date</label>
+                                        <div class="input-group date">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                            </div>
+
+                                            @Html.TextBoxFor(x => x.shipdate, new { @class = "form-control", @id = "simpleDataInput", @Value = System.DateTime.Now.ToString("dd/MM/yyyy") })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+</div>
+
+
+
+
+
+

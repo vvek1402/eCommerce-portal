@@ -1,0 +1,75 @@
+﻿@model E_Commerce.Models.HomeViewModel
+@{
+    Layout = null;
+}
+
+<div class="row isotope-grid">
+    @{
+        long cid = Model.data.Item2;
+        int count = Model.data.Item3;
+        var list = Model.data.Item1.ProductList.Where(x => x.category_id == cid).ToList().Take(count);
+        foreach (var item in list)
+        {
+            var variant = Model.data.Item1.ProductVariantList.Where(x => x.product_id == item.product_id).ToList();
+            var images = Model.data.Item1.ProductImageList.Where(x => x.product_variant_id == variant[0].product_variant_id).ToList();
+            <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women" >
+                <!-- Block2 -->
+                <div class="block2">
+                    <div class="block2-pic hov-img0">
+                        <img src="@images[0].main_image" alt="IMG-PRODUCT" style=" height:300px;">
+
+                        <a href="@Url.Action("productdetail","Home",new { id=@item.product_id ,area="User"})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+                            Quick View
+                        </a>
+                    </div>
+
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                @item.title
+                            </a>
+
+                            <span class="stext-105 cl3">
+                               Rs. @variant[0].Selling_price
+                            </span>
+                        </div>
+
+                        <div class="block2-txt-child2 flex-r p-t-3">
+                            <button ng-click="addwishlist(@variant[0].product_variant_id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                <img class="icon-heart1 dis-block trans-04" src="~/Includes/images/icons/icon-heart-01.png" alt="ICON">
+                                <img class="icon-heart2 dis-block trans-04 ab-t-l" src="~/Includes/images/icons/icon-heart-02.png" alt="ICON">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<script>
+
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope, $http) {
+
+        $scope.addwishlist = function (id) {
+            $http({
+                method: "POST",
+                url: "/User/Home/addwishlist/" + id
+            }).then(function mySuccess(response) {
+                reloadwhislistcount();
+
+            }, function myError(response) {
+
+                    swal({
+                        text: "Try Again",
+                        icon: "error",
+                        button: "Ok",
+                    });
+            });
+        }
+
+    });
+
+
+</script>

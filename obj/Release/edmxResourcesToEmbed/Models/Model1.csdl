@@ -1,0 +1,1046 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="address_type">
+    <Key>
+      <PropertyRef Name="address_type_id" />
+    </Key>
+    <Property Name="address_type_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="address_type1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User_address" Relationship="Self.FK_User_address_address_type" FromRole="address_type" ToRole="User_address" />
+  </EntityType>
+  <EntityType Name="card_company">
+    <Key>
+      <PropertyRef Name="card_company_id" />
+    </Key>
+    <Property Name="card_company_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="company_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="card_detail" Relationship="Self.FK_card_detail_card_type" FromRole="card_company" ToRole="card_detail" />
+  </EntityType>
+  <EntityType Name="card_detail">
+    <Key>
+      <PropertyRef Name="card_detail_id" />
+    </Key>
+    <Property Name="card_detail_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="card_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="expiry_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="card_holder_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="card_company_id" Type="Int64" Nullable="false" />
+    <Property Name="card_type_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="card_company" Relationship="Self.FK_card_detail_card_type" FromRole="card_detail" ToRole="card_company" />
+    <NavigationProperty Name="card_type" Relationship="Self.FK_card_detail_card_type1" FromRole="card_detail" ToRole="card_type" />
+    <NavigationProperty Name="payment_detail" Relationship="Self.FK_payment_detail_card_detail" FromRole="card_detail" ToRole="payment_detail" />
+  </EntityType>
+  <EntityType Name="card_type">
+    <Key>
+      <PropertyRef Name="card_type_id" />
+    </Key>
+    <Property Name="card_type_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="card_detail" Relationship="Self.FK_card_detail_card_type1" FromRole="card_type" ToRole="card_detail" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="category_id" />
+    </Key>
+    <Property Name="category_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Isactive" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.FK_product_category" FromRole="category" ToRole="product" />
+    <NavigationProperty Name="sub_category" Relationship="Self.FK_sub_category_category" FromRole="category" ToRole="sub_category" />
+  </EntityType>
+  <EntityType Name="city">
+    <Key>
+      <PropertyRef Name="city_id" />
+    </Key>
+    <Property Name="city_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="city_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User_address" Relationship="Self.FK_User_address_city" FromRole="city" ToRole="User_address" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="Country_id" />
+    </Key>
+    <Property Name="Country_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Country_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User_address" Relationship="Self.FK_User_address_Country" FromRole="Country" ToRole="User_address" />
+  </EntityType>
+  <EntityType Name="currency_type">
+    <Key>
+      <PropertyRef Name="currency_type_id" />
+    </Key>
+    <Property Name="currency_type_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="currency_type1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Order_detail" Relationship="Model.FK_Order_detail_currency_type" FromRole="currency_type" ToRole="Order_detail" />
+  </EntityType>
+  <EntityType Name="image">
+    <Key>
+      <PropertyRef Name="image_id" />
+    </Key>
+    <Property Name="image_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_variant_id" Type="Int64" Nullable="false" />
+    <Property Name="main_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="image1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="image2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="image3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="image4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="product_variant_value" Relationship="Self.FK_images_product" FromRole="images" ToRole="product_variant_value" />
+  </EntityType>
+  <EntityType Name="NetBanking_detail">
+    <Key>
+      <PropertyRef Name="netbanking_detail_id" />
+    </Key>
+    <Property Name="netbanking_detail_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bank_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="payment_detail" Relationship="Self.FK_payment_detail_NetBanking_detail" FromRole="NetBanking_detail" ToRole="payment_detail" />
+  </EntityType>
+  <EntityType Name="order_status">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Name="status_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Model.FK_Order_order_status" FromRole="order_status" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="payment_detail">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int64" Nullable="false" />
+    <Property Name="netbanking_detail_id" Type="Int64" />
+    <Property Name="card_detail_id" Type="Int64" />
+    <Property Name="transaction_no" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="transaction_status_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="card_detail" Relationship="Self.FK_payment_detail_card_detail" FromRole="payment_detail" ToRole="card_detail" />
+    <NavigationProperty Name="NetBanking_detail" Relationship="Self.FK_payment_detail_NetBanking_detail" FromRole="payment_detail" ToRole="NetBanking_detail" />
+    <NavigationProperty Name="transaction_status" Relationship="Self.FK_payment_detail_transaction_status" FromRole="payment_detail" ToRole="transaction_status" />
+    <NavigationProperty Name="Order" Relationship="Model.FK_payment_detail_Order" FromRole="payment_detail" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="payment_mode">
+    <Key>
+      <PropertyRef Name="payment_mode_id" />
+    </Key>
+    <Property Name="payment_mode_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="payment_mode1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Model.FK_Order_payment_mode" FromRole="payment_mode" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="price_decision_factor">
+    <Key>
+      <PropertyRef Name="price_factor_id" />
+    </Key>
+    <Property Name="price_factor_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.FK_product_price_decision_factor" FromRole="price_decision_factor" ToRole="product" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="rating" Type="Double" Nullable="false" />
+    <Property Name="no_users_rated" Type="Int32" Nullable="false" />
+    <Property Name="Isactive" Type="Int32" Nullable="false" />
+    <Property Name="price_factor_id" Type="Int64" Nullable="false" />
+    <Property Name="category_id" Type="Int64" Nullable="false" />
+    <Property Name="sub_category_id" Type="Int64" Nullable="false" />
+    <Property Name="admin_id" Type="Int64" Nullable="false" />
+    <Property Name="shipping_rate" Type="Double" Nullable="false" />
+    <Property Name="sku" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isvariant" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.FK_product_category" FromRole="product" ToRole="category" />
+    <NavigationProperty Name="price_decision_factor" Relationship="Self.FK_product_price_decision_factor" FromRole="product" ToRole="price_decision_factor" />
+    <NavigationProperty Name="sub_category" Relationship="Self.FK_product_sub_category" FromRole="product" ToRole="sub_category" />
+    <NavigationProperty Name="User_account" Relationship="Self.FK_product_User_account" FromRole="product" ToRole="User_account" />
+    <NavigationProperty Name="product_variant_value" Relationship="Self.FK_product_variant_value_product" FromRole="product" ToRole="product_variant_value" />
+  </EntityType>
+  <EntityType Name="product_variant_value">
+    <Key>
+      <PropertyRef Name="product_variant_id" />
+    </Key>
+    <Property Name="product_variant_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_variant_title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="product_id" Type="Int64" Nullable="false" />
+    <Property Name="variant_value_id" Type="Int64" />
+    <Property Name="MRP" Type="Double" Nullable="false" />
+    <Property Name="Selling_price" Type="Double" Nullable="false" />
+    <Property Name="discount" Type="Double" Nullable="false" />
+    <Property Name="discount_min_quantity" Type="Int32" Nullable="false" />
+    <Property Name="discount_max_quantity" Type="Int32" Nullable="false" />
+    <Property Name="weight" Type="Int32" Nullable="false" />
+    <Property Name="unit_in_stock" Type="Int32" Nullable="false" />
+    <Property Name="max_purchase_quantity" Type="Int32" Nullable="false" />
+    <Property Name="quantity_per_unit" Type="Int32" Nullable="false" />
+    <Property Name="sku" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="images" Relationship="Self.FK_images_product" FromRole="product_variant_value" ToRole="images" />
+    <NavigationProperty Name="product" Relationship="Self.FK_product_variant_value_product" FromRole="product_variant_value" ToRole="product" />
+    <NavigationProperty Name="variant_value" Relationship="Self.FK_product_variant_value_variant_value" FromRole="product_variant_value" ToRole="variant_value" />
+    <NavigationProperty Name="wishlists" Relationship="Self.FK_wishlist_product_variant_value" FromRole="product_variant_value" ToRole="wishlist" />
+    <NavigationProperty Name="carts" Relationship="Model.FK_cart_product_variant_value" FromRole="product_variant_value" ToRole="cart" />
+    <NavigationProperty Name="Order_detail" Relationship="Model.FK_Order_detail_product_variant_value" FromRole="product_variant_value" ToRole="Order_detail" />
+    <NavigationProperty Name="reviews" Relationship="Model.FK_review_product_variant_value" FromRole="product_variant_value" ToRole="review" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="role_id" />
+    </Key>
+    <Property Name="role_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="role_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="User_account" Relationship="Self.FK_User_account_Role" FromRole="Role" ToRole="User_account" />
+  </EntityType>
+  <EntityType Name="sub_category">
+    <Key>
+      <PropertyRef Name="sub_category_id" />
+    </Key>
+    <Property Name="sub_category_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sub_category_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Isactive" Type="Int32" Nullable="false" />
+    <Property Name="category_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.FK_sub_category_category" FromRole="sub_category" ToRole="category" />
+    <NavigationProperty Name="products" Relationship="Self.FK_product_sub_category" FromRole="sub_category" ToRole="product" />
+    <NavigationProperty Name="variants" Relationship="Self.FK_variant_sub_category" FromRole="sub_category" ToRole="variant" />
+  </EntityType>
+  <EntityType Name="transaction_status">
+    <Key>
+      <PropertyRef Name="transaction_status_id" />
+    </Key>
+    <Property Name="transaction_status_id" Type="Int64" Nullable="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="payment_detail" Relationship="Self.FK_payment_detail_transaction_status" FromRole="transaction_status" ToRole="payment_detail" />
+  </EntityType>
+  <EntityType Name="User_account">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mobile_no" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.FK_product_User_account" FromRole="User_account" ToRole="product" />
+    <NavigationProperty Name="Role" Relationship="Self.FK_User_account_Role" FromRole="User_account" ToRole="Role" />
+    <NavigationProperty Name="User_address" Relationship="Self.FK_User_address_User" FromRole="User_account" ToRole="User_address" />
+    <NavigationProperty Name="wishlists" Relationship="Self.FK_wishlist_User1" FromRole="User_account" ToRole="wishlist" />
+    <NavigationProperty Name="carts" Relationship="Model.FK_cart_User" FromRole="User_account" ToRole="cart" />
+    <NavigationProperty Name="Orders" Relationship="Model.FK_Order_User" FromRole="User_account" ToRole="Order" />
+    <NavigationProperty Name="reviews" Relationship="Model.FK_review_User_account" FromRole="User_account" ToRole="review" />
+  </EntityType>
+  <EntityType Name="User_address">
+    <Key>
+      <PropertyRef Name="user_add_id" />
+    </Key>
+    <Property Name="user_add_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pincode" Type="Int32" Nullable="false" />
+    <Property Name="city_id" Type="Int64" Nullable="false" />
+    <Property Name="country_id" Type="Int64" Nullable="false" />
+    <Property Name="address_type_id" Type="Int64" Nullable="false" />
+    <Property Name="user_id" Type="Int64" Nullable="false" />
+    <Property Name="isdefault" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="address_type" Relationship="Self.FK_User_address_address_type" FromRole="User_address" ToRole="address_type" />
+    <NavigationProperty Name="city" Relationship="Self.FK_User_address_city" FromRole="User_address" ToRole="city" />
+    <NavigationProperty Name="Country" Relationship="Self.FK_User_address_Country" FromRole="User_address" ToRole="Country" />
+    <NavigationProperty Name="User_account" Relationship="Self.FK_User_address_User" FromRole="User_address" ToRole="User_account" />
+    <NavigationProperty Name="Orders" Relationship="Model.FK_Order_User_address" FromRole="User_address" ToRole="Order" />
+    <NavigationProperty Name="Orders1" Relationship="Model.FK_Order_User_address1" FromRole="User_address" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="variant">
+    <Key>
+      <PropertyRef Name="variant_id" />
+    </Key>
+    <Property Name="variant_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="variant_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="sub_category_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="sub_category" Relationship="Self.FK_variant_sub_category" FromRole="variant" ToRole="sub_category" />
+    <NavigationProperty Name="variant_value" Relationship="Self.FK_variant_value_variant" FromRole="variant" ToRole="variant_value" />
+  </EntityType>
+  <EntityType Name="variant_value">
+    <Key>
+      <PropertyRef Name="variant_value_id" />
+    </Key>
+    <Property Name="variant_value_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="variant_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="product_variant_value" Relationship="Self.FK_product_variant_value_variant_value" FromRole="variant_value" ToRole="product_variant_value" />
+    <NavigationProperty Name="variant" Relationship="Self.FK_variant_value_variant" FromRole="variant_value" ToRole="variant" />
+  </EntityType>
+  <EntityType Name="wishlist">
+    <Key>
+      <PropertyRef Name="wishlist_id" />
+    </Key>
+    <Property Name="wishlist_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int64" Nullable="false" />
+    <Property Name="product_variant_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="product_variant_value" Relationship="Self.FK_wishlist_product_variant_value" FromRole="wishlist" ToRole="product_variant_value" />
+    <NavigationProperty Name="User_account" Relationship="Self.FK_wishlist_User1" FromRole="wishlist" ToRole="User_account" />
+  </EntityType>
+  <Association Name="FK_User_address_address_type">
+    <End Role="address_type" Type="Self.address_type" Multiplicity="1" />
+    <End Role="User_address" Type="Self.User_address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="address_type">
+        <PropertyRef Name="address_type_id" />
+      </Principal>
+      <Dependent Role="User_address">
+        <PropertyRef Name="address_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_card_detail_card_type">
+    <End Role="card_company" Type="Self.card_company" Multiplicity="1" />
+    <End Role="card_detail" Type="Self.card_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="card_company">
+        <PropertyRef Name="card_company_id" />
+      </Principal>
+      <Dependent Role="card_detail">
+        <PropertyRef Name="card_company_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_card_detail_card_type1">
+    <End Role="card_type" Type="Self.card_type" Multiplicity="1" />
+    <End Role="card_detail" Type="Self.card_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="card_type">
+        <PropertyRef Name="card_type_id" />
+      </Principal>
+      <Dependent Role="card_detail">
+        <PropertyRef Name="card_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_detail_card_detail">
+    <End Role="card_detail" Type="Self.card_detail" Multiplicity="0..1" />
+    <End Role="payment_detail" Type="Self.payment_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="card_detail">
+        <PropertyRef Name="card_detail_id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="card_detail_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_category">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sub_category_category">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="sub_category" Type="Self.sub_category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="category_id" />
+      </Principal>
+      <Dependent Role="sub_category">
+        <PropertyRef Name="category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_address_city">
+    <End Role="city" Type="Self.city" Multiplicity="1" />
+    <End Role="User_address" Type="Self.User_address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="city">
+        <PropertyRef Name="city_id" />
+      </Principal>
+      <Dependent Role="User_address">
+        <PropertyRef Name="city_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_address_Country">
+    <End Role="Country" Type="Self.Country" Multiplicity="1" />
+    <End Role="User_address" Type="Self.User_address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="Country_id" />
+      </Principal>
+      <Dependent Role="User_address">
+        <PropertyRef Name="country_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_images_product">
+    <End Role="product_variant_value" Type="Self.product_variant_value" Multiplicity="1" />
+    <End Role="images" Type="Self.image" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_variant_value">
+        <PropertyRef Name="product_variant_id" />
+      </Principal>
+      <Dependent Role="images">
+        <PropertyRef Name="product_variant_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_detail_NetBanking_detail">
+    <End Role="NetBanking_detail" Type="Self.NetBanking_detail" Multiplicity="0..1" />
+    <End Role="payment_detail" Type="Self.payment_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NetBanking_detail">
+        <PropertyRef Name="netbanking_detail_id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="netbanking_detail_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_detail_transaction_status">
+    <End Role="transaction_status" Type="Self.transaction_status" Multiplicity="1" />
+    <End Role="payment_detail" Type="Self.payment_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="transaction_status">
+        <PropertyRef Name="transaction_status_id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="transaction_status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_price_decision_factor">
+    <End Role="price_decision_factor" Type="Self.price_decision_factor" Multiplicity="1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="price_decision_factor">
+        <PropertyRef Name="price_factor_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="price_factor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_sub_category">
+    <End Role="sub_category" Type="Self.sub_category" Multiplicity="1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sub_category">
+        <PropertyRef Name="sub_category_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="sub_category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_User_account">
+    <End Role="User_account" Type="Self.User_account" Multiplicity="1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_account">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="admin_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_variant_value_product">
+    <End Role="product" Type="Self.product" Multiplicity="1" />
+    <End Role="product_variant_value" Type="Self.product_variant_value" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="product_variant_value">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_product_variant_value_variant_value">
+    <End Role="variant_value" Type="Self.variant_value" Multiplicity="0..1" />
+    <End Role="product_variant_value" Type="Self.product_variant_value" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="variant_value">
+        <PropertyRef Name="variant_value_id" />
+      </Principal>
+      <Dependent Role="product_variant_value">
+        <PropertyRef Name="variant_value_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_wishlist_product_variant_value">
+    <End Role="product_variant_value" Type="Self.product_variant_value" Multiplicity="1" />
+    <End Role="wishlist" Type="Self.wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_variant_value">
+        <PropertyRef Name="product_variant_id" />
+      </Principal>
+      <Dependent Role="wishlist">
+        <PropertyRef Name="product_variant_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_account_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="User_account" Type="Self.User_account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="role_id" />
+      </Principal>
+      <Dependent Role="User_account">
+        <PropertyRef Name="role_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_variant_sub_category">
+    <End Role="sub_category" Type="Self.sub_category" Multiplicity="1" />
+    <End Role="variant" Type="Self.variant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sub_category">
+        <PropertyRef Name="sub_category_id" />
+      </Principal>
+      <Dependent Role="variant">
+        <PropertyRef Name="sub_category_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_address_User">
+    <End Role="User_account" Type="Self.User_account" Multiplicity="1" />
+    <End Role="User_address" Type="Self.User_address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_account">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="User_address">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_wishlist_User1">
+    <End Role="User_account" Type="Self.User_account" Multiplicity="1" />
+    <End Role="wishlist" Type="Self.wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_account">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="wishlist">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_variant_value_variant">
+    <End Role="variant" Type="Self.variant" Multiplicity="1" />
+    <End Role="variant_value" Type="Self.variant_value" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="variant">
+        <PropertyRef Name="variant_id" />
+      </Principal>
+      <Dependent Role="variant_value">
+        <PropertyRef Name="variant_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="address_type" EntityType="Self.address_type" />
+    <EntitySet Name="card_company" EntityType="Self.card_company" />
+    <EntitySet Name="card_detail" EntityType="Self.card_detail" />
+    <EntitySet Name="card_type" EntityType="Self.card_type" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="cities" EntityType="Self.city" />
+    <EntitySet Name="Countries" EntityType="Self.Country" />
+    <EntitySet Name="currency_type" EntityType="Self.currency_type" />
+    <EntitySet Name="images" EntityType="Self.image" />
+    <EntitySet Name="NetBanking_detail" EntityType="Self.NetBanking_detail" />
+    <EntitySet Name="order_status" EntityType="Self.order_status" />
+    <EntitySet Name="payment_detail" EntityType="Self.payment_detail" />
+    <EntitySet Name="payment_mode" EntityType="Self.payment_mode" />
+    <EntitySet Name="price_decision_factor" EntityType="Self.price_decision_factor" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="product_variant_value" EntityType="Self.product_variant_value" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="sub_category" EntityType="Self.sub_category" />
+    <EntitySet Name="transaction_status" EntityType="Self.transaction_status" />
+    <EntitySet Name="User_account" EntityType="Self.User_account" />
+    <EntitySet Name="User_address" EntityType="Self.User_address" />
+    <EntitySet Name="variants" EntityType="Self.variant" />
+    <EntitySet Name="variant_value" EntityType="Self.variant_value" />
+    <EntitySet Name="wishlists" EntityType="Self.wishlist" />
+    <AssociationSet Name="FK_User_address_address_type" Association="Self.FK_User_address_address_type">
+      <End Role="address_type" EntitySet="address_type" />
+      <End Role="User_address" EntitySet="User_address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_card_detail_card_type" Association="Self.FK_card_detail_card_type">
+      <End Role="card_company" EntitySet="card_company" />
+      <End Role="card_detail" EntitySet="card_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_card_detail_card_type1" Association="Self.FK_card_detail_card_type1">
+      <End Role="card_type" EntitySet="card_type" />
+      <End Role="card_detail" EntitySet="card_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_detail_card_detail" Association="Self.FK_payment_detail_card_detail">
+      <End Role="card_detail" EntitySet="card_detail" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_category" Association="Self.FK_product_category">
+      <End Role="category" EntitySet="categories" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sub_category_category" Association="Self.FK_sub_category_category">
+      <End Role="category" EntitySet="categories" />
+      <End Role="sub_category" EntitySet="sub_category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_address_city" Association="Self.FK_User_address_city">
+      <End Role="city" EntitySet="cities" />
+      <End Role="User_address" EntitySet="User_address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_address_Country" Association="Self.FK_User_address_Country">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="User_address" EntitySet="User_address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_images_product" Association="Self.FK_images_product">
+      <End Role="product_variant_value" EntitySet="product_variant_value" />
+      <End Role="images" EntitySet="images" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_detail_NetBanking_detail" Association="Self.FK_payment_detail_NetBanking_detail">
+      <End Role="NetBanking_detail" EntitySet="NetBanking_detail" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_detail_transaction_status" Association="Self.FK_payment_detail_transaction_status">
+      <End Role="transaction_status" EntitySet="transaction_status" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_price_decision_factor" Association="Self.FK_product_price_decision_factor">
+      <End Role="price_decision_factor" EntitySet="price_decision_factor" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_sub_category" Association="Self.FK_product_sub_category">
+      <End Role="sub_category" EntitySet="sub_category" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_User_account" Association="Self.FK_product_User_account">
+      <End Role="User_account" EntitySet="User_account" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_variant_value_product" Association="Self.FK_product_variant_value_product">
+      <End Role="product" EntitySet="products" />
+      <End Role="product_variant_value" EntitySet="product_variant_value" />
+    </AssociationSet>
+    <AssociationSet Name="FK_product_variant_value_variant_value" Association="Self.FK_product_variant_value_variant_value">
+      <End Role="variant_value" EntitySet="variant_value" />
+      <End Role="product_variant_value" EntitySet="product_variant_value" />
+    </AssociationSet>
+    <AssociationSet Name="FK_wishlist_product_variant_value" Association="Self.FK_wishlist_product_variant_value">
+      <End Role="product_variant_value" EntitySet="product_variant_value" />
+      <End Role="wishlist" EntitySet="wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_account_Role" Association="Self.FK_User_account_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="User_account" EntitySet="User_account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_variant_sub_category" Association="Self.FK_variant_sub_category">
+      <End Role="sub_category" EntitySet="sub_category" />
+      <End Role="variant" EntitySet="variants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_address_User" Association="Self.FK_User_address_User">
+      <End Role="User_account" EntitySet="User_account" />
+      <End Role="User_address" EntitySet="User_address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_wishlist_User1" Association="Self.FK_wishlist_User1">
+      <End Role="User_account" EntitySet="User_account" />
+      <End Role="wishlist" EntitySet="wishlists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_variant_value_variant" Association="Self.FK_variant_value_variant">
+      <End Role="variant" EntitySet="variants" />
+      <End Role="variant_value" EntitySet="variant_value" />
+    </AssociationSet>
+    <EntitySet Name="carts" EntityType="Model.cart" />
+    <AssociationSet Name="FK_cart_product_variant_value" Association="Model.FK_cart_product_variant_value">
+      <End Role="product_variant_value" EntitySet="product_variant_value" />
+      <End Role="cart" EntitySet="carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_cart_User" Association="Model.FK_cart_User">
+      <End Role="User_account" EntitySet="User_account" />
+      <End Role="cart" EntitySet="carts" />
+    </AssociationSet>
+    <EntitySet Name="Orders" EntityType="Model.Order" />
+    <AssociationSet Name="FK_Order_order_status" Association="Model.FK_Order_order_status">
+      <End Role="order_status" EntitySet="order_status" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_payment_mode" Association="Model.FK_Order_payment_mode">
+      <End Role="payment_mode" EntitySet="payment_mode" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_User" Association="Model.FK_Order_User">
+      <End Role="User_account" EntitySet="User_account" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_User_address" Association="Model.FK_Order_User_address">
+      <End Role="User_address" EntitySet="User_address" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_User_address1" Association="Model.FK_Order_User_address1">
+      <End Role="User_address" EntitySet="User_address" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_payment_detail_Order" Association="Model.FK_payment_detail_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="payment_detail" EntitySet="payment_detail" />
+    </AssociationSet>
+    <EntitySet Name="Order_detail" EntityType="Model.Order_detail" />
+    <AssociationSet Name="FK_Order_detail_currency_type" Association="Model.FK_Order_detail_currency_type">
+      <End Role="currency_type" EntitySet="currency_type" />
+      <End Role="Order_detail" EntitySet="Order_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_detail_Order" Association="Model.FK_Order_detail_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Order_detail" EntitySet="Order_detail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_detail_product_variant_value" Association="Model.FK_Order_detail_product_variant_value">
+      <End Role="product_variant_value" EntitySet="product_variant_value" />
+      <End Role="Order_detail" EntitySet="Order_detail" />
+    </AssociationSet>
+    <EntitySet Name="reviews" EntityType="Model.review" />
+    <AssociationSet Name="FK_review_product_variant_value" Association="Model.FK_review_product_variant_value">
+      <End Role="product_variant_value" EntitySet="product_variant_value" />
+      <End Role="review" EntitySet="reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_review_User_account" Association="Model.FK_review_User_account">
+      <End Role="User_account" EntitySet="User_account" />
+      <End Role="review" EntitySet="reviews" />
+    </AssociationSet>
+    <EntitySet Name="coupens" EntityType="Model.coupen" />
+    <AssociationSet Name="FK_Order_coupen" Association="Model.FK_Order_coupen">
+      <End Role="coupen" EntitySet="coupens" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <EntitySet Name="return_reason" EntityType="Model.return_reason" />
+    <EntitySet Name="return_status" EntityType="Model.return_status" />
+    <EntitySet Name="order_return" EntityType="Model.order_return" />
+    <AssociationSet Name="FK_order_return_Order" Association="Model.FK_order_return_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="order_return" EntitySet="order_return" />
+    </AssociationSet>
+    <AssociationSet Name="FK_order_return_return_reason" Association="Model.FK_order_return_return_reason">
+      <End Role="return_reason" EntitySet="return_reason" />
+      <End Role="order_return" EntitySet="order_return" />
+    </AssociationSet>
+    <AssociationSet Name="FK_order_return_return_status" Association="Model.FK_order_return_return_status">
+      <End Role="return_status" EntitySet="return_status" />
+      <End Role="order_return" EntitySet="order_return" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="cart">
+    <Key>
+      <PropertyRef Name="cart_id" />
+    </Key>
+    <Property Name="cart_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="user_id" Type="Int64" Nullable="false" />
+    <Property Name="product_variant_id" Type="Int64" Nullable="false" />
+    <Property Name="qty" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="product_variant_value" Relationship="Model.FK_cart_product_variant_value" FromRole="cart" ToRole="product_variant_value" />
+    <NavigationProperty Name="User_account" Relationship="Model.FK_cart_User" FromRole="cart" ToRole="User_account" />
+  </EntityType>
+  <Association Name="FK_cart_product_variant_value">
+    <End Type="Model.product_variant_value" Role="product_variant_value" Multiplicity="1" />
+    <End Type="Model.cart" Role="cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_variant_value">
+        <PropertyRef Name="product_variant_id" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="product_variant_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_cart_User">
+    <End Type="Model.User_account" Role="User_account" Multiplicity="1" />
+    <End Type="Model.cart" Role="cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_account">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_no" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="order_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="shipdate" Type="DateTime" Precision="0" />
+    <Property Name="status_id" Type="Int64" Nullable="false" />
+    <Property Name="billing_add" Type="Int64" Nullable="false" />
+    <Property Name="shipping_add" Type="Int64" Nullable="false" />
+    <Property Name="user_id" Type="Int64" Nullable="false" />
+    <Property Name="payment_mode_id" Type="Int64" Nullable="false" />
+    <Property Name="coupen_id" Type="Int64" />
+    <Property Name="shiprate" Type="Double" Nullable="false" />
+    <NavigationProperty Name="order_status" Relationship="Model.FK_Order_order_status" FromRole="Order" ToRole="order_status" />
+    <NavigationProperty Name="payment_mode" Relationship="Model.FK_Order_payment_mode" FromRole="Order" ToRole="payment_mode" />
+    <NavigationProperty Name="User_account" Relationship="Model.FK_Order_User" FromRole="Order" ToRole="User_account" />
+    <NavigationProperty Name="User_address" Relationship="Model.FK_Order_User_address" FromRole="Order" ToRole="User_address" />
+    <NavigationProperty Name="User_address1" Relationship="Model.FK_Order_User_address1" FromRole="Order" ToRole="User_address" />
+    <NavigationProperty Name="payment_detail" Relationship="Model.FK_payment_detail_Order" FromRole="Order" ToRole="payment_detail" />
+    <NavigationProperty Name="Order_detail" Relationship="Model.FK_Order_detail_Order" FromRole="Order" ToRole="Order_detail" />
+    <NavigationProperty Name="coupen" Relationship="Model.FK_Order_coupen" FromRole="Order" ToRole="coupen" />
+    <NavigationProperty Name="order_return" Relationship="Model.FK_order_return_Order" FromRole="Order" ToRole="order_return" />
+  </EntityType>
+  <Association Name="FK_Order_order_status">
+    <End Type="Model.order_status" Role="order_status" Multiplicity="1" />
+    <End Type="Model.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="order_status">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_payment_mode">
+    <End Type="Model.payment_mode" Role="payment_mode" Multiplicity="1" />
+    <End Type="Model.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment_mode">
+        <PropertyRef Name="payment_mode_id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="payment_mode_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_User">
+    <End Type="Model.User_account" Role="User_account" Multiplicity="1" />
+    <End Type="Model.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_account">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_User_address">
+    <End Type="Model.User_address" Role="User_address" Multiplicity="1" />
+    <End Type="Model.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_address">
+        <PropertyRef Name="user_add_id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="shipping_add" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_User_address1">
+    <End Type="Model.User_address" Role="User_address" Multiplicity="1" />
+    <End Type="Model.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_address">
+        <PropertyRef Name="user_add_id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="billing_add" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_payment_detail_Order">
+    <End Type="Model.Order" Role="Order" Multiplicity="1" />
+    <End Type="Model.payment_detail" Role="payment_detail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="payment_detail">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order_detail">
+    <Key>
+      <PropertyRef Name="order_detail_id" />
+    </Key>
+    <Property Name="order_detail_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <Property Name="total_amount" Type="Double" Nullable="false" />
+    <Property Name="product_variant_id" Type="Int64" Nullable="false" />
+    <Property Name="order_id" Type="Int64" Nullable="false" />
+    <Property Name="currency_type_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="currency_type" Relationship="Model.FK_Order_detail_currency_type" FromRole="Order_detail" ToRole="currency_type" />
+    <NavigationProperty Name="Order" Relationship="Model.FK_Order_detail_Order" FromRole="Order_detail" ToRole="Order" />
+    <NavigationProperty Name="product_variant_value" Relationship="Model.FK_Order_detail_product_variant_value" FromRole="Order_detail" ToRole="product_variant_value" />
+  </EntityType>
+  <Association Name="FK_Order_detail_currency_type">
+    <End Type="Model.currency_type" Role="currency_type" Multiplicity="1" />
+    <End Type="Model.Order_detail" Role="Order_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="currency_type">
+        <PropertyRef Name="currency_type_id" />
+      </Principal>
+      <Dependent Role="Order_detail">
+        <PropertyRef Name="currency_type_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_detail_Order">
+    <End Type="Model.Order" Role="Order" Multiplicity="1" />
+    <End Type="Model.Order_detail" Role="Order_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="Order_detail">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_detail_product_variant_value">
+    <End Type="Model.product_variant_value" Role="product_variant_value" Multiplicity="1" />
+    <End Type="Model.Order_detail" Role="Order_detail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_variant_value">
+        <PropertyRef Name="product_variant_id" />
+      </Principal>
+      <Dependent Role="Order_detail">
+        <PropertyRef Name="product_variant_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="review">
+    <Key>
+      <PropertyRef Name="review_id" />
+    </Key>
+    <Property Name="review_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="review1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="star" Type="Int32" Nullable="false" />
+    <Property Name="product_variant_id" Type="Int64" Nullable="false" />
+    <Property Name="user_id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="product_variant_value" Relationship="Model.FK_review_product_variant_value" FromRole="review" ToRole="product_variant_value" />
+    <NavigationProperty Name="User_account" Relationship="Model.FK_review_User_account" FromRole="review" ToRole="User_account" />
+  </EntityType>
+  <Association Name="FK_review_product_variant_value">
+    <End Type="Model.product_variant_value" Role="product_variant_value" Multiplicity="1" />
+    <End Type="Model.review" Role="review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product_variant_value">
+        <PropertyRef Name="product_variant_id" />
+      </Principal>
+      <Dependent Role="review">
+        <PropertyRef Name="product_variant_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_review_User_account">
+    <End Type="Model.User_account" Role="User_account" Multiplicity="1" />
+    <End Type="Model.review" Role="review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_account">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="review">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="coupen">
+    <Key>
+      <PropertyRef Name="coupen_id" />
+    </Key>
+    <Property Name="coupen_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="starting_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ending_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="discount_rate" Type="Double" Nullable="false" />
+    <Property Name="minimun_purchase_price" Type="Double" Nullable="false" />
+    <Property Name="maximum_purchase_price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Model.FK_Order_coupen" FromRole="coupen" ToRole="Order" />
+  </EntityType>
+  <Association Name="FK_Order_coupen">
+    <End Type="Model.coupen" Role="coupen" Multiplicity="0..1" />
+    <End Type="Model.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="coupen">
+        <PropertyRef Name="coupen_id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="coupen_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="return_reason">
+    <Key>
+      <PropertyRef Name="return_reason_id" />
+    </Key>
+    <Property Name="return_reason_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="return_reason1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="order_return" Relationship="Model.FK_order_return_return_reason" FromRole="return_reason" ToRole="order_return" />
+  </EntityType>
+  <EntityType Name="return_status">
+    <Key>
+      <PropertyRef Name="return_status_id" />
+    </Key>
+    <Property Name="return_status_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="return_status1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="order_return" Relationship="Model.FK_order_return_return_status" FromRole="return_status" ToRole="order_return" />
+  </EntityType>
+  <EntityType Name="order_return">
+    <Key>
+      <PropertyRef Name="order_return_id" />
+    </Key>
+    <Property Name="order_return_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_id" Type="Int64" Nullable="false" />
+    <Property Name="return_status_id" Type="Int64" Nullable="false" />
+    <Property Name="return_reason_id" Type="Int64" Nullable="false" />
+    <Property Name="return_pickup_date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Order" Relationship="Model.FK_order_return_Order" FromRole="order_return" ToRole="Order" />
+    <NavigationProperty Name="return_reason" Relationship="Model.FK_order_return_return_reason" FromRole="order_return" ToRole="return_reason" />
+    <NavigationProperty Name="return_status" Relationship="Model.FK_order_return_return_status" FromRole="order_return" ToRole="return_status" />
+  </EntityType>
+  <Association Name="FK_order_return_Order">
+    <End Type="Model.Order" Role="Order" Multiplicity="1" />
+    <End Type="Model.order_return" Role="order_return" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="order_return">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_order_return_return_reason">
+    <End Type="Model.return_reason" Role="return_reason" Multiplicity="1" />
+    <End Type="Model.order_return" Role="order_return" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="return_reason">
+        <PropertyRef Name="return_reason_id" />
+      </Principal>
+      <Dependent Role="order_return">
+        <PropertyRef Name="return_reason_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_order_return_return_status">
+    <End Type="Model.return_status" Role="return_status" Multiplicity="1" />
+    <End Type="Model.order_return" Role="order_return" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="return_status">
+        <PropertyRef Name="return_status_id" />
+      </Principal>
+      <Dependent Role="order_return">
+        <PropertyRef Name="return_status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

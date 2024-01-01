@@ -1,0 +1,104 @@
+﻿@model E_Commerce.Models.CartViewModel
+@{
+    ViewBag.Title = "wishlist";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="@Url.Action("home")" class="stext-109 cl8 hov-cl1 trans-04">
+            Home
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            Wishlist
+        </span>
+    </div>
+</div>
+<div class="bg0 p-t-75 p-b-85 container" ng-app="myApp" ng-controller="myCtrl">
+    <div class="col-xl-12 col-lg-12 mb-4">
+        <div class="card">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Wish List</h6>
+                
+            </div>
+            <div class="table-responsive my-wishlist-table">
+                @Html.Partial("wishlisttable", Model)
+            </div>
+            <div class="card-footer"></div>
+        </div>
+    </div>
+</div>
+    <script>
+
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+
+
+
+            $scope.addcart = function (id) {
+                $http({
+                    method: "POST",
+                    url: "/User/Home/addcart/" + id
+                }).then(function mySuccess(response) {
+                    reloadcount();
+                    swal({
+                        title: $scope.title,
+                        text: " Added to Your Cart",
+                        icon: "success",
+                        button: "Ok",
+                    });
+                }, function myError(response) {
+                    swal({
+                        text: "Try Again",
+                        icon: "error",
+                        button: "Ok",
+                    });
+                });
+            }
+
+
+            function reloadcount() {
+                $.ajax({
+                    type: "POST",
+                    url: "/User/Home/getcartitemno",
+                    success: function (result) {
+                        $("#cart-no").attr("data-notify", result.data);
+                    }
+                })
+            }
+
+        });
+
+
+    </script>
+    <script>
+
+        function removewishlist(id) {
+
+            $.ajax({
+                type: "POST",
+                url: "/User/Home/removewishlistitem/" + id,
+                success: function (response) {
+                    $(".my-wishlist-table").load("/User/Home/getwishlistList");
+                    reloadwishlistcount();
+                },
+                error: function (response) {
+                    alert("error");
+                }
+            })
+
+        }
+
+        function reloadwishlistcount() {
+            $.ajax({
+                type: "POST",
+                url: "/User/Home/getwishlistitemno",
+                success: function (result) {
+                    $("#wishlist-no").attr("data-notify", result.data);
+                }
+            })
+        }
+    </script>

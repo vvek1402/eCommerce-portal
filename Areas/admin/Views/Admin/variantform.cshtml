@@ -1,0 +1,91 @@
+﻿@model E_Commerce.Models.CascadingCatSubCat
+
+@{
+    ViewBag.Title = "Add product";
+    Layout = "~/Areas/admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="padding:20px;">
+    <form class="form-horizontal" action="" method="post">
+        <div class="form-group" style="width: 100%;">
+            <label class="control-label col-sm-2" for="">
+                Category *
+            </label>
+            <div class="col-sm-6 form-holder">
+
+                @if (ViewBag.CategoryList != null)
+                {
+                    @Html.DropDownListFor(model => model.category_id, ViewBag.CategoryList as SelectList, "--Select Category--", new { @class = "form-control" })
+                }
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </div>
+        <div class="form-group" style="width: 100%;">
+            <label class="control-label col-sm-4" for="">
+                Sub Category *
+            </label>
+            <div class="col-sm-6 form-holder">
+                @Html.DropDownListFor(model => model.sub_category_id, new SelectList(" "), "--Select Sub Category--", new { @class = "form-control" })
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="sku">Product SKU Id:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.sku, new { @class = "form-control ", @placeholder = "SKU ID" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="title">Product Title:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.title, new { @class = "form-control item", @placeholder = "Enter Product Title" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="description">Other Product Detail:</label>
+            <div class="col-sm-6">
+                @Html.TextAreaFor(x => x.description, new { @class = "ckeditor" })
+            </div>
+        </div>
+
+
+        <div class="form-group" style="width: 100%;">
+            <label class="control-label col-sm-4" for="">
+                Price Factor *
+            </label>
+            <div class="col-sm-6 form-holder">
+                @if (ViewBag.PriceFactorList != null)
+                {
+                    @Html.DropDownListFor(x => x.price_factor_id, ViewBag.PriceFactorList as SelectList, "--Select price factor--", new { @class = "form-control" })
+                }
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4" for="shippingrate">Shipping rate:</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(x => x.shipping_rate, new { @class = "form-control ", @placeholder = "Enter shippingrate" })
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#category_id").change(function () {
+            $.get("/admin/Admin/GetSubCategoryList", { category_id: $("#category_id").val() }, function (data) {
+                $("#sub_category_id").empty();
+                $.each(data, function (index, row) {
+                    $("#sub_category_id").append("<option value='" + row.sub_category_id + "'>" + row.sub_category_name + "</option>")
+                });
+            });
+        })
+    });
+</script>

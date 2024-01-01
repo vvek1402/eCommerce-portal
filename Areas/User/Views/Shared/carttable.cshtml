@@ -1,0 +1,60 @@
+﻿@model E_Commerce.Models.CartViewModel
+@{
+    Layout = null;
+}
+
+<table class="table-shopping-cart">
+    <tr class="table_head">
+        <th class="column-1">Product</th>
+        <th class="column-2"></th>
+        <th class="column-3">Price</th>
+        <th class="column-4">Quantity</th>
+        <th class="column-5">Total</th>
+        <th class="column-6"> Remove</th>
+    </tr>
+    @if (Model.cartList.Count == 0)
+    {
+        <tr><td colspan="6" style="text-align:center;">Your Cart is Empty</td></tr>
+    }
+    @foreach (var cartitem in Model.cartList)
+    {
+        var product = Model.productVariantList.Where(x => x.product_variant_id == cartitem.product_variant_id).SingleOrDefault();
+        var image = Model.productImageList.Where(x => x.product_variant_id == product.product_variant_id).SingleOrDefault();
+        Model.GrandTotal += product.Selling_price * cartitem.qty;
+        <tr class="table_row">
+            <td style="display:none;" id="stock">@product.unit_in_stock</td>
+            <td class="column-1">
+                <div class="how-itemcart1">
+                    <img src="@image.main_image" style="width:60px; height:80px;" alt="IMG">
+                </div>
+            </td>
+            <td class="column-2">@product.product_variant_title</td>
+            <td class="column-3">Rs. <span id="price">@product.Selling_price</span></td>
+            <td class="column-4">
+                <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                        <i class="fs-16 zmdi zmdi-minus"></i>
+                    </div>
+                    
+                    <input readonly class="mtext-104 cl3 txt-center num-product" id="id_@cartitem.cart_id" type="number" name="@cartitem.cart_id" value="@cartitem.qty">
+
+                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                        <i class="fs-16 zmdi zmdi-plus"></i>
+                    </div>
+
+                </div>
+            </td>
+            @{ var total = @product.Selling_price * @cartitem.qty;}
+            <td class="column-5">Rs. <span id="total">@total</span></td>
+            <td>
+                <button onclick="removecart(@cartitem.cart_id)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+
+       
+
+    }
+
+</table>
